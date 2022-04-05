@@ -39,6 +39,8 @@
 \tableofcontents
 
 \newpage
+\section{Introducción}
+Con el fin de hacer una recopilación de las prácticas realizadas en el curso y conocimientos previos, este proyecto buscará llevar una temática apocalíptica en la cual se abarcará lo anteriormente mencionado, donde se implementará interfaz gráfica, movimientos físicos, manipulación de archivos, etc. Se pondrá a prueba las habilidades de los desarrolladores creando un videojuego intrépido, divertido y desafiante, en el cual se deberá salvar al mundo usando sus habilidades.
 \section{Objetivos}\label{objetivos}
 \begin{itemize}
     \item Aplicar los conocimientos adquiridos sobre programación orientada a objetos, modelando las de clases y objetos del proyecto final.
@@ -61,13 +63,27 @@ Los modelos físicos a implementar son: movimiento parabólico, movimiento circu
 \section{Clases: atributos y métodos}
 
 \subsection{Personaje principal}
+\noindent\textbf{Atributos:} posiciones (x,y), vidas, munición (balas, granadas).\\
+\textbf{Métodos:} métodos getter y setter para las posiciones, vidas y munición; métodos de movimiento y salto; métodos necesarios para graficar en la interfaz; disparo; interacción con bonificaciones.
 
+\subsection{Enemigos}
+\noindent\textbf{Atributos:} posiciones (x,y), vidas.\\
+\textbf{Métodos:} métodos getter y setter para las posiciones y vidas; métodos de movimiento; métodos necesarios para graficar en la interfaz; ataque.
 
+\subsection{Nivel}
+\noindent\textbf{Atributos:} Noción de dificultad incrementando la salud y/o aumentando los enemigos en el mapa, limitar las ayudas a medida que se avanza en el juego\\
+\textbf{Métodos:} generar enemigos, generar vida, generar munición, generar plataformas
 
+\subsection{Proyectiles y balas}
+\noindent\textbf{Atributos:} posiciones (x,y)\\
+\textbf{Métodos:} métodos getter y setter para las posiciones, movimiento (de acuerdo a modelos fisicos, la bala ira en linea recta y la granada describira una trayectoria parabolica).
 
+\subsection{Bonificaciones/ Power-ups}
+\noindent\textbf{Atributos:} posiciones (x,y), probabilidad de aparicion y tipo de bonificacion (vida,municion u otros)\\
+\textbf{Métodos:} métodos getter y setter para las posiciones, movimiento (la bonificación aparecerá aleatoriamente y se moverá por el mapa)
 
-
-
-
+\subsection{Mainwindow}
+\noindent\textbf{Atributos:} listas con los objetos del mapa, aliens, bonificaciones, bloques y plataformas; temporizadores; escena\\
+\textbf{Métodos:} eventos de tecla; generación del mapa, enemigos y bonificaciones.
 
 \end{document}
