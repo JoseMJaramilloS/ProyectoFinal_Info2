@@ -17,9 +17,10 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setBackgroundBrush(QBrush(QImage(":/mapa/fondo1.jpeg")));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->centerOn(0,0);
+    generarMapa();
 
-    bloqTest = new bloque(0,0,90);
-    scene->addItem(bloqTest);
+//    bloqTest = new bloque(0,0,90);
+//    scene->addItem(bloqTest);
 }
 
 MainWindow::~MainWindow()
@@ -29,6 +30,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::generarMapa()
 {
+    bool flag=false;
+    for (int i=0,j=0;i<=(dim_x*10);i+=90) {
 
+        // Generacion de suelo
+        if (!((90*6<=i && i<=90*7) || (90*23<=i && i<=90*24) || (90*36<=i && i<=90*37) || (90*51<=i && i<=90*52) || (90*81<=i && i<=90*82))) {
+            bloques.push_back(new bloque(i,720-90,90));
+            scene->addItem(bloques.back());
+        }
+
+        // Plataformas
+        if(rand()%5==1){
+            flag=true;
+            j=0;
+        }
+        if(flag && j<2 && i!=0){
+            bloques.push_back(new bloque(i,720-90*4,90));
+            scene->addItem(bloques.back());
+            j++;
+        }
+    }
 }
 

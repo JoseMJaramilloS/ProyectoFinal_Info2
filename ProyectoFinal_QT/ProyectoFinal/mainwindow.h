@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "bloque.h"
+#include <cstdlib> //Para generacion de numeros aleatorios
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
