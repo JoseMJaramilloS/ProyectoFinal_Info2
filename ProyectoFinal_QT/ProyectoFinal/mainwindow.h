@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include "bloque.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -16,11 +17,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void generarMapa();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
     QGraphicsView *view;
     int dim_x=0, dim_y=0;
+    QList <bloque*>bloques;
+    QList <bloque*>::Iterator iter;
+    bloque *bloqTest;
+
 };
 #endif // MAINWINDOW_H
