@@ -3,5 +3,6 @@
         <file>mapa/floor.png</file>
         <file>mapa/fondo1.jpeg</file>
         <file>mapa/fondo1.png</file>
+        <file>mapa/Bullet.png</file>
     </qresource>
 </RCC>
