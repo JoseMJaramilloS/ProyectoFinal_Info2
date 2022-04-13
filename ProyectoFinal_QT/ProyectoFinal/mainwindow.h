@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QTimer>
 #include "bloque.h"
 #include "alien1.h"
 #include <cstdlib> //Para generacion de numeros aleatorios
@@ -21,6 +22,9 @@ public:
     ~MainWindow();
     void generarMapa();
 
+public slots:
+    void movimientoAlien();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
@@ -30,6 +34,7 @@ private:
     alien1 *enemy1;
     QList <bloque*>::Iterator iter;
     bloque *bloqTest;
+    QTimer *timer;
 
 };
 #endif // MAINWINDOW_H

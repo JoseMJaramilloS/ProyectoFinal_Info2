@@ -20,15 +20,13 @@ SOURCES += \
     bloque.cpp \
     bullet.cpp \
     main.cpp \
-    mainwindow.cpp \
-    personaje.cpp
+    mainwindow.cpp
 
 HEADERS += \
     alien1.h \
     bloque.h \
     bullet.h \
-    mainwindow.h \
-    personaje.h
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui

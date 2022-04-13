@@ -19,10 +19,15 @@ MainWindow::MainWindow(QWidget *parent)
     ui->graphicsView->centerOn(0,0);
     generarMapa();
 
-//    bloqTest = new bloque(0,0,90);
-//    scene->addItem(bloqTest);
+    timer= new QTimer;
+
+
     enemy1 = new alien1();
     scene->addItem(enemy1);
+
+    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien()));
+    timer->start(100);
+
 }
 
 MainWindow::~MainWindow()
@@ -52,5 +57,10 @@ void MainWindow::generarMapa()
             j++;
         }
     }
+}
+
+void MainWindow::movimientoAlien()
+{
+    enemy1->Movimiento();
 }
 
