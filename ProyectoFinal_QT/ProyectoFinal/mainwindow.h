@@ -5,6 +5,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "bloque.h"
+#include "alien1.h"
 #include <cstdlib> //Para generacion de numeros aleatorios
 
 QT_BEGIN_NAMESPACE
@@ -26,6 +27,7 @@ private:
     QGraphicsView *view;
     int dim_x=0, dim_y=0;
     QList <bloque*>bloques;
+    alien1 *enemy1;
     QList <bloque*>::Iterator iter;
     bloque *bloqTest;
 

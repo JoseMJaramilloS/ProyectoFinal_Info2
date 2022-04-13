@@ -1,24 +1,27 @@
-#ifndef BULLET_H
-#define BULLET_H
+#ifndef ALIEN1_H
+#define ALIEN1_H
 #include <QGraphicsItem>
 #include <QPainter>
 #include <QPixmap>
+#include <math.h>
 
-class bullet : public QGraphicsItem
+class alien1: public QGraphicsItem
 {
     int posx;
     int posy;
     int lado;
-    int vel;
+    float a,w,u;//amplitud, vel angular, desfase
 public:
-    bullet();
-    bullet(int x, int y, int lado, int vel);
+    alien1();
+    alien1(int x, int y, int lado, float a, float w, float u);
+
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+
     void Movimiento();
 
     int getPosx() const;
     int getPosy() const;
 };
 
-#endif // BULLET_H
+#endif // ALIEN1_H

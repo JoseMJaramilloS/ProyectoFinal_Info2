@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
 
 //    bloqTest = new bloque(0,0,90);
 //    scene->addItem(bloqTest);
+    enemy1 = new alien1();
+    scene->addItem(enemy1);
 }
 
 MainWindow::~MainWindow()
