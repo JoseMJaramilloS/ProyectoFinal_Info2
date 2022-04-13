@@ -19,7 +19,7 @@ bullet::bullet()
     setPos(posx,posy);
 }
 
-bullet::bullet(int x, int y, int lado)
+bullet::bullet(int x, int y, int lado, int vel)
 {
     this->posx=x;
     this->posy=y;

@@ -19,12 +19,14 @@ SOURCES += \
     bloque.cpp \
     bullet.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    personaje.cpp
 
 HEADERS += \
     bloque.h \
     bullet.h \
-    mainwindow.h
+    mainwindow.h \
+    personaje.h
 
 FORMS += \
     mainwindow.ui
