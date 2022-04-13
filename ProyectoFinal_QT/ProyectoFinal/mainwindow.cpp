@@ -32,37 +32,32 @@ MainWindow::~MainWindow()
 
 void MainWindow::generarMapa()
 {
-    bool flag=false;
+    bool flag=false,cond;
     for (int i=0,j=0;i<=(dim_x*10);i+=90) {
 
-        // Generacion de suelo
-        if (!((90*6<=i && i<=90*7) || (90*23<=i && i<=90*24) || (90*36<=i && i<=90*37) || (90*51<=i && i<=90*52) || (90*81<=i && i<=90*82))) {
+        // Condicion para acantilados
+        cond=!((90*6<=i && i<=90*7) || (90*23<=i && i<=90*24) || (90*36<=i && i<=90*37) || (90*51<=i && i<=90*52) || (90*81<=i && i<=90*82));
+        if (cond) {
+            // Generacion de suelo
             bloques.push_back(new bloque(i,720-90,90));
             scene->addItem(bloques.back());
         }
         else {
-
             // Generacion de aliens1
-            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%2)));
+            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%4)));
             scene->addItem(aliens1.back());
-
-
-
         }
         // Plataformas
         if(rand()%5==1){
             flag=true;
             j=0;
         }
-        if(flag && j<2 && i!=0){
+        if(flag && j<2 && i!=0 && cond){
             bloques.push_back(new bloque(i,720-90*4,90));
             scene->addItem(bloques.back());
             j++;
         }
-
-
     }
-
 }
 
 void MainWindow::movimientoAlien()
