@@ -12,7 +12,7 @@ class bullet : public QGraphicsItem
     int vel;
 public:
     bullet();
-    bullet(int x, int y, int lado);
+    bullet(int x, int y, int lado, int vel);
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void Movimiento();
