@@ -25,6 +25,7 @@ alien1::alien1(int x, int y, int lado, float a, float w, float u)
 {
     this->posx=x;
     this->posy=y;
+    this->posy0=y;
     this->lado=lado;
     this->a=a;
     this->w=w;
@@ -43,9 +44,10 @@ void alien1::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
 }
 void alien1::Movimiento()
 {
+
+    if(dt>=2*M_PI/w) dt=0;
+    posy = posy0 - a*sin(w*dt+u);
     dt++;
-    if(dt==5*M_PI) dt=0;
-    posy = a*pow(sin(w*dt+u),2);
     cout<<posy<<endl;
     setPos(posx,posy);
 

@@ -246,6 +246,9 @@ debug/moc_mainwindow.cpp: ../ProyectoFinal/mainwindow.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
 		../ProyectoFinal/bloque.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qgraphicsitem.h \
@@ -696,6 +699,9 @@ debug/main.o: ../ProyectoFinal/main.cpp ../ProyectoFinal/mainwindow.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
 		../ProyectoFinal/bloque.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qgraphicsitem.h \
@@ -828,29 +834,16 @@ debug/mainwindow.o: ../ProyectoFinal/mainwindow.cpp ../ProyectoFinal/mainwindow.
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qabstractscrollarea.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QTimer \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qtimer.h \
+		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qbasictimer.h \
 		../ProyectoFinal/bloque.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QGraphicsItem \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPainter \
 		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/QPixmap \
 		../ProyectoFinal/alien1.h \
-		ui_mainwindow.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/QVariant \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QApplication \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtCore/qeventloop.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qguiapplication.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtGui/qinputmethod.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QMenuBar \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmenubar.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qmenu.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qaction.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qactiongroup.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QStatusBar \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/Qt5.12.9/5.12.9/mingw73_64/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\mainwindow.o ..\ProyectoFinal\mainwindow.cpp
 
 debug/qrc_mapa.o: debug/qrc_mapa.cpp 

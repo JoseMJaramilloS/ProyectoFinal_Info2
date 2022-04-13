@@ -11,8 +11,9 @@ class alien1: public QGraphicsItem
 {
     int posx;
     int posy;
+    int posy0;
     int lado;
-    int dt=1;
+    float dt=0.00001;
     float a,w,u;//amplitud, vel angular, desfase
 
 public slots:

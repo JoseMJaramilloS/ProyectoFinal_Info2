@@ -31,8 +31,9 @@ private:
     QGraphicsView *view;
     int dim_x=0, dim_y=0;
     QList <bloque*>bloques;
-    alien1 *enemy1;
-    QList <bloque*>::Iterator iter;
+    QList <bloque*>::Iterator iter_bloq;
+    QList <alien1*>aliens1;
+    QList <alien1*>::Iterator iter_aliens1;
     bloque *bloqTest;
     QTimer *timer;
 
