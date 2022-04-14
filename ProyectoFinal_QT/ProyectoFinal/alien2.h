@@ -9,19 +9,20 @@ using namespace std;
 
 class alien2: public QObject, public QGraphicsItem
 {
+    int posx=0;
+    int posy=0;
+    int vel=1;
 
 public:
-    //alien2();
-    //alien2(int x, int y, int lado);
-    explicit alien2(QObject *parent=nullptr);
+    alien2(int x, int y);
+    alien2(QObject *parent=nullptr);
 
     QTimer *timer;
     QPixmap *pixmap;
-    //int posx=0,posy=0,tam=0;
-    float filas, columnas,ancho,alto;
+
+    float filas, columnas, ancho, alto;
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-
 
     void MovDerecha();
     void MovIzquierda();

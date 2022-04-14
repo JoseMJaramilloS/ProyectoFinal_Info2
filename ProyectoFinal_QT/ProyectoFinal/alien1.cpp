@@ -48,7 +48,7 @@ void alien1::Movimiento()
     if(dt>=2*M_PI/w) dt=0;
     posy = posy0 - a*sin(w*dt+u);
     dt++;
-    cout<<posy<<endl;
+    //cout<<posy<<endl;
     setPos(posx,posy);
 
 }

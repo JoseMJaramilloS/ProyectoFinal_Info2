@@ -26,7 +26,8 @@ public:
     void generarMapa();
 
 public slots:
-    void movimientoAlien();
+    void movimientoAlien1();
+    void movimientoAlien2();
 
 private:
     Ui::MainWindow *ui;
@@ -37,9 +38,10 @@ private:
     QList <bloque*>::Iterator iter_bloq;
     QList <alien1*>aliens1;
     QList <alien1*>::Iterator iter_aliens1;
-    bloque *bloqTest;
+    QList <alien2*>aliens2;
+    QList <alien2*>::Iterator iter_aliens2;
     QTimer *timer;
-    alien2 *enemy2;
-
+    int count=0, mov=0; // Para el movimiento de alien2
+    bool sentido=true; // Para el movimiento de alien2
 };
 #endif // MAINWINDOW_H

@@ -20,10 +20,10 @@ MainWindow::MainWindow(QWidget *parent)
     generarMapa();
 
     timer= new QTimer;
-    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
     timer->start(10);
-    enemy2 = new alien2();
-    scene->addItem(enemy2);
+
 }
 
 MainWindow::~MainWindow()
@@ -42,10 +42,16 @@ void MainWindow::generarMapa()
             // Generacion de suelo
             bloques.push_back(new bloque(i,720-90,90));
             scene->addItem(bloques.back());
+
+            // Generacion de aliens2
+            if(rand()%10==1 && i>(90*7)){
+                aliens2.push_back(new alien2(i,720-90-120));
+                scene->addItem(aliens2.back());
+            }
         }
         else {
             // Generacion de aliens1
-            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%5)));
+            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%6)));
             scene->addItem(aliens1.back());
         }
         // Plataformas
@@ -58,13 +64,42 @@ void MainWindow::generarMapa()
             scene->addItem(bloques.back());
             j++;
         }
+
     }
 }
 
-void MainWindow::movimientoAlien()
+void MainWindow::movimientoAlien1()
 {
     for (iter_aliens1=aliens1.begin();iter_aliens1!=aliens1.end();iter_aliens1++) {
         (*iter_aliens1)->Movimiento();
     }
 }
 
+void MainWindow::movimientoAlien2()
+{
+    int dist=5000;
+    count++;
+    cout<<count<<" "<<mov<<endl;
+    if(count==2){ // Se puede controlar la velocidad de moviemiento
+        for (iter_aliens2=aliens2.begin();iter_aliens2!=aliens2.end();iter_aliens2++) {
+            if (mov<dist && sentido==true) {
+                (*iter_aliens2)->MovDerecha();
+                mov++;
+                if(mov==dist){
+                    mov=0;
+                    sentido=false;
+                }
+            }
+            else if(mov<dist && sentido==false) {
+                (*iter_aliens2)->MovIzquierda();
+                mov++;
+                if(mov==dist){
+                    mov=0;
+                    sentido=true;
+                }
+            }
+
+        }
+        count=0;
+    }
+}
