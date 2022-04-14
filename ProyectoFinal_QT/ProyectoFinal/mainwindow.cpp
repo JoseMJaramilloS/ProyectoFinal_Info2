@@ -22,7 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     timer= new QTimer;
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien()));
     timer->start(10);
-
+    enemy2 = new alien2();
+    scene->addItem(enemy2);
 }
 
 MainWindow::~MainWindow()
@@ -44,7 +45,7 @@ void MainWindow::generarMapa()
         }
         else {
             // Generacion de aliens1
-            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%4)));
+            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%5)));
             scene->addItem(aliens1.back());
         }
         // Plataformas

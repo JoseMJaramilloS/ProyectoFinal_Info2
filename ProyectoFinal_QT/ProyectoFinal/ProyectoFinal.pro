@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     alien1.cpp \
+    alien2.cpp \
     bloque.cpp \
     bullet.cpp \
     main.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 
 HEADERS += \
     alien1.h \
+    alien2.h \
     bloque.h \
     bullet.h \
     mainwindow.h
@@ -37,4 +39,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
+    alien.qrc \
     mapa.qrc
+
+DISTFILES +=

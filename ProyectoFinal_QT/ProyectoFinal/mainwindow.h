@@ -3,10 +3,13 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QGraphicsItem>
 #include <QGraphicsView>
+#include <QDebug>
 #include <QTimer>
 #include "bloque.h"
 #include "alien1.h"
+#include "alien2.h"
 #include <cstdlib> //Para generacion de numeros aleatorios
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +39,7 @@ private:
     QList <alien1*>::Iterator iter_aliens1;
     bloque *bloqTest;
     QTimer *timer;
+    alien2 *enemy2;
 
 };
 #endif // MAINWINDOW_H
