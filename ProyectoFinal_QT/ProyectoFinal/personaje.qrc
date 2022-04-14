@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>personaje/hand_grenade_01.png</file>
+    </qresource>
+</RCC>

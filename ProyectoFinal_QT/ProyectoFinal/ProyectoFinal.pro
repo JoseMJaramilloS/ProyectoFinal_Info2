@@ -20,6 +20,7 @@ SOURCES += \
     alien2.cpp \
     bloque.cpp \
     bullet.cpp \
+    granade.cpp \
     main.cpp \
     mainwindow.cpp
 
@@ -28,6 +29,7 @@ HEADERS += \
     alien2.h \
     bloque.h \
     bullet.h \
+    granade.h \
     mainwindow.h
 
 FORMS += \
@@ -40,6 +42,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     alien.qrc \
-    mapa.qrc
+    mapa.qrc \
+    personaje.qrc
 
 DISTFILES +=
