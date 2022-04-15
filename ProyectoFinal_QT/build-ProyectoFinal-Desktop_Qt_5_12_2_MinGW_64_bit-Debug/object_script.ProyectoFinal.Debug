@@ -1,0 +1,13 @@
+debug/alien1.o
+debug/alien2.o
+debug/bloque.o
+debug/bullet.o
+debug/granade.o
+debug/main.o
+debug/mainwindow.o
+debug/municion.o
+debug/personaje.o
+debug/qrc_alien.o
+debug/qrc_mapa.o
+debug/qrc_personaje.o
+debug/moc_mainwindow.o

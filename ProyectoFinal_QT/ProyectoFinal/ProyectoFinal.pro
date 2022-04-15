@@ -23,6 +23,7 @@ SOURCES += \
     granade.cpp \
     main.cpp \
     mainwindow.cpp \
+    municion.cpp \
     personaje.cpp
 
 HEADERS += \
@@ -31,6 +32,7 @@ HEADERS += \
     bloque.h \
     bullet.h \
     mainwindow.h \
+    municion.h \
     personaje.h \
     granade.h \
     mainwindow.h

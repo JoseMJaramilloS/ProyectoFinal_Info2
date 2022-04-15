@@ -13,6 +13,7 @@
 #include "alien1.h"
 #include "alien2.h"
 #include "personaje.h"
+#include "municion.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,6 +44,9 @@ private:
     QList <alien2*>aliens2;
     QList <alien2*>::Iterator iter_aliens2;
     personaje *soldado;
+    QList <municion*>municiones;
+    QList <municion*>::Iterator iter_muni;
+    //municion *muni;
     QTimer *timer;
     int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2

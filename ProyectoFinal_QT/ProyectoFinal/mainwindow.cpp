@@ -27,6 +27,9 @@ MainWindow::MainWindow(QWidget *parent)
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
 
+    //muni= new municion();
+    //scene->addItem(muni);
+
 }
 
 MainWindow::~MainWindow()
@@ -65,7 +68,15 @@ void MainWindow::generarMapa()
         if(flag && j<2 && i!=0 && cond){
             bloques.push_back(new bloque(i,720-90*4,90));
             scene->addItem(bloques.back());
+            if(rand()%10==1 && i>(90*7)){
+                municiones.push_back(new municion(i,301,60));
+                scene->addItem(municiones.back());
+            }
             j++;
+        }
+        if(rand()%8==1 && i>(90*7)){
+            municiones.push_back(new municion(i,571,60));
+            scene->addItem(municiones.back());
         }
 
     }
