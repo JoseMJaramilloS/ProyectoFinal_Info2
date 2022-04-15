@@ -1,0 +1,11 @@
+release/alien1.o
+release/alien2.o
+release/bloque.o
+release/bullet.o
+release/main.o
+release/mainwindow.o
+release/personaje.o
+release/qrc_alien.o
+release/qrc_mapa.o
+release/qrc_personaje.o
+release/moc_mainwindow.o

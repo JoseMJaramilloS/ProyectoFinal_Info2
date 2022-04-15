@@ -7,10 +7,12 @@
 #include <QGraphicsView>
 #include <QDebug>
 #include <QTimer>
+#include <cstdlib> //Para generacion de numeros aleatorios
+#include <QKeyEvent>
 #include "bloque.h"
 #include "alien1.h"
 #include "alien2.h"
-#include <cstdlib> //Para generacion de numeros aleatorios
+#include "personaje.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -40,8 +42,10 @@ private:
     QList <alien1*>::Iterator iter_aliens1;
     QList <alien2*>aliens2;
     QList <alien2*>::Iterator iter_aliens2;
+    personaje *soldado;
     QTimer *timer;
-    int count=0, mov=0; // Para el movimiento de alien2
-    bool sentido=true; // Para el movimiento de alien2
+    int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
+    bool sentidoAlien2=true; // Para el movimiento de alien2
+    void keyPressEvent(QKeyEvent *evento);
 };
 #endif // MAINWINDOW_H

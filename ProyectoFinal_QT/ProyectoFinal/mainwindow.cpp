@@ -24,6 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
     timer->start(10);
 
+    soldado= new personaje(0,720-90-90);
+    scene->addItem(soldado);
+
 }
 
 MainWindow::~MainWindow()
@@ -78,28 +81,57 @@ void MainWindow::movimientoAlien1()
 void MainWindow::movimientoAlien2()
 {
     int dist=5000;
-    count++;
-    cout<<count<<" "<<mov<<endl;
-    if(count==2){ // Se puede controlar la velocidad de moviemiento
+    tiempoAlien2++;
+    if(tiempoAlien2==2){ // Se puede controlar la velocidad de moviemiento
         for (iter_aliens2=aliens2.begin();iter_aliens2!=aliens2.end();iter_aliens2++) {
-            if (mov<dist && sentido==true) {
+            if (mov<dist && sentidoAlien2==true) {
                 (*iter_aliens2)->MovDerecha();
                 mov++;
                 if(mov==dist){
                     mov=0;
-                    sentido=false;
+                    sentidoAlien2=false;
                 }
             }
-            else if(mov<dist && sentido==false) {
+            else if(mov<dist && sentidoAlien2==false) {
                 (*iter_aliens2)->MovIzquierda();
                 mov++;
                 if(mov==dist){
                     mov=0;
-                    sentido=true;
+                    sentidoAlien2=true;
                 }
             }
 
         }
-        count=0;
+        tiempoAlien2=0;
+    }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *evento)
+{
+    switch (evento->key()) {
+    case Qt::Key_D:{
+        soldado->MovDerecha();
+        break;
+    }
+    case Qt::Key_A:{
+        soldado->MovIzquierda();
+        break;
+    }
+    case Qt::Key_W:{
+        soldado->saltar();
+        break;
+    }
+    case Qt::Key_I:{
+        //disparar
+        break;
+    }
+    case Qt::Key_O:{
+        //lanzar granada
+        break;
+    }
+    default:
+
+        break;
+
     }
 }
