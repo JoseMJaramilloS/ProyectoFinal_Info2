@@ -50,9 +50,15 @@ void personaje::setGranadas(int value)
     granadas = value;
 }
 
-void personaje::setVely(float value)
+
+bool personaje::getSalto() const
 {
-    vely = value;
+    return salto;
+}
+
+void personaje::setSalto(bool value)
+{
+    salto = value;
 }
 
 personaje::personaje()
@@ -68,6 +74,10 @@ personaje::personaje(int x, int y)
 
     timer = new QTimer;
     connect(timer,&QTimer::timeout,this,&personaje::gravedad);
+    timerColisiones = new QTimer;
+//    connect(timerColisiones,&QTimer::timeout,this,&personaje::colisionBloques);
+//    timerColisiones->start(100);
+
 }
 
 QRectF personaje::boundingRect() const
@@ -101,12 +111,13 @@ void personaje::gravedad()
     setPos(posx,posy);
     cout<<"vely: "<<vely<<" posy: "<<posy<<" "<<0.5*g*pow(dt,2)<<endl;
 
-    if(posy>720-90-90) { // Restriccion del piso (temporal)
-        dt=0;
-        timer->stop();
-        posy=720-90-90;
-        setPos(posx,posy);
-    }
+//    if(posy>720-90-90) { // Restriccion del piso (temporal)
+//        dt=0;
+//        timer->stop();
+//        posy=720-90-90;
+//        setPos(posx,posy);
+//        salto=false;
+//    }
 
 }
 
@@ -114,5 +125,22 @@ void personaje::saltar()
 {
     vely0=8;
     timer->start(10);
+    salto=true;
 
 }
+
+void personaje::caida()
+{
+    vely0=0;
+    timer->start(10);
+}
+
+void personaje::sinCaida(int posyBloque)
+{
+        dt=0;
+        timer->stop();
+        posy=posyBloque-90;
+        setPos(posx,posy);
+}
+
+

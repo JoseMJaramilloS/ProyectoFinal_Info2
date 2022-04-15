@@ -14,6 +14,7 @@ public:
     bloque(int x, int y, int lado);
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
+    int getPosy() const;
 };
 
 #endif // BLOQUE_H

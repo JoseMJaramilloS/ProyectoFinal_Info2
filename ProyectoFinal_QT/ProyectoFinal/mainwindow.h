@@ -28,9 +28,12 @@ public:
     ~MainWindow();
     void generarMapa();
 
+
 public slots:
     void movimientoAlien1();
     void movimientoAlien2();
+    bool colisionBloques();
+    void efectoCaida();
 
 private:
     Ui::MainWindow *ui;
@@ -51,5 +54,6 @@ private:
     int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2
     void keyPressEvent(QKeyEvent *evento);
+    bloque *bloqueColisionado;
 };
 #endif // MAINWINDOW_H

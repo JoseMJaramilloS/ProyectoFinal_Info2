@@ -1,8 +1,13 @@
 #include "bloque.h"
 
+int bloque::getPosy() const
+{
+    return posy;
+}
+
 bloque::bloque()
 {
-
+    
 }
 
 bloque::bloque(int x, int y, int lado)

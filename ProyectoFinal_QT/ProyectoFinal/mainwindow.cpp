@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     timer= new QTimer;
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
     timer->start(10);
 
     soldado= new personaje(0,720-90-90);
@@ -39,6 +41,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::generarMapa()
 {
+    int ultimaAmmo=0;
     bool flag=false,cond;
     for (int i=0,j=0;i<=(dim_x*10);i+=90) {
 
@@ -74,13 +77,17 @@ void MainWindow::generarMapa()
             }
             j++;
         }
-        if(rand()%8==1 && i>(90*7)){
+
+        if(rand()%9==1 && i>(90*7) && (i-ultimaAmmo)>=400){
+            // Generacion de municion
+            ultimaAmmo=i;
             municiones.push_back(new municion(i,571,60));
             scene->addItem(municiones.back());
         }
 
     }
 }
+
 
 void MainWindow::movimientoAlien1()
 {
@@ -117,19 +124,65 @@ void MainWindow::movimientoAlien2()
     }
 }
 
+bool MainWindow::colisionBloques()
+{
+    for (int i=0;i<bloques.length();i++) {
+        if (bloques.at(i)->collidesWithItem(soldado)) {
+            cout<<"Colision"<<endl;
+            bloqueColisionado=bloques.at(i);
+            return true;
+        }
+    }
+    return false;
+//    cout<<typeid ((scene->itemAt(soldado->getPosx()+0,soldado->getPosy()+2))<<endl;
+//    if (bloques.at(soldado->getPosy()+2)) {
+//        cout<<"Colision"<<endl;
+//        return true;
+//    }
+//    return false;
+}
+
+void MainWindow::efectoCaida()
+{
+    if(!colisionBloques() && !(soldado->getSalto())){
+        soldado->caida();
+        cout<<"Cae"<<endl;
+    }
+    else if (colisionBloques() && !(soldado->getSalto())) {
+        soldado->sinCaida(bloqueColisionado->getPosy());
+        cout<<"No Cae"<<endl;
+    }
+    else if (colisionBloques() && soldado->getSalto()) {
+        soldado->sinCaida(bloqueColisionado->getPosy());
+        soldado->setSalto(false);
+        cout<<"No Cae"<<endl;
+
+    }
+
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
     switch (evento->key()) {
     case Qt::Key_D:{
         soldado->MovDerecha();
+//        if(!colisionBloques() && !(soldado->getSalto())){
+//            soldado->caida();
+//        }
+//        else if (colisionBloques() && !(soldado->getSalto())) {
+//            soldado->sinCaida();
+//        }
+
         break;
     }
     case Qt::Key_A:{
         soldado->MovIzquierda();
+        //soldado->colisionBloques(bloques);
         break;
     }
     case Qt::Key_W:{
         soldado->saltar();
+        //soldado->colisionBloques(bloques);
         break;
     }
     case Qt::Key_I:{

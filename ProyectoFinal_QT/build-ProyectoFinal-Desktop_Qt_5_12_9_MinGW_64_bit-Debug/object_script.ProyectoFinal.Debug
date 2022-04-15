@@ -5,6 +5,7 @@ debug/bullet.o
 debug/granade.o
 debug/main.o
 debug/mainwindow.o
+debug/municion.o
 debug/personaje.o
 debug/qrc_alien.o
 debug/qrc_mapa.o

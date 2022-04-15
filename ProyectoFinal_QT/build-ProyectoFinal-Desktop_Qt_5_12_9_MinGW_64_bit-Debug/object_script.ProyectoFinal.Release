@@ -5,6 +5,7 @@ release/bullet.o
 release/granade.o
 release/main.o
 release/mainwindow.o
+release/municion.o
 release/personaje.o
 release/qrc_alien.o
 release/qrc_mapa.o
