@@ -134,29 +134,28 @@ bool MainWindow::colisionBloques()
         }
     }
     return false;
-//    cout<<typeid ((scene->itemAt(soldado->getPosx()+0,soldado->getPosy()+2))<<endl;
-//    if (bloques.at(soldado->getPosy()+2)) {
-//        cout<<"Colision"<<endl;
-//        return true;
-//    }
-//    return false;
 }
 
 void MainWindow::efectoCaida()
 {
-    if(!colisionBloques() && !(soldado->getSalto())){
+
+    cout<<"x: "<<int(soldado->getPosx())<<" y: "<<int(soldado->getPosy())<<endl;
+
+    if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE
         soldado->caida();
+        soldado->setCaer(true);
         cout<<"Cae"<<endl;
     }
-    else if (colisionBloques() && !(soldado->getSalto())) {
+    else if (colisionBloques() && !(soldado->getSalto())) { //colision: TRUE, salto: FALSE
         soldado->sinCaida(bloqueColisionado->getPosy());
-        cout<<"No Cae"<<endl;
+        soldado->setCaer(false);
+        cout<<"No Cae1"<<endl;
     }
-    else if (colisionBloques() && soldado->getSalto()) {
+    else if (colisionBloques() && soldado->getSalto()) { //colision: TRUE, salto: TRUE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setSalto(false);
-        cout<<"No Cae"<<endl;
-
+        soldado->setCaer(false);
+        cout<<"No Cae2"<<endl;
     }
 
 }

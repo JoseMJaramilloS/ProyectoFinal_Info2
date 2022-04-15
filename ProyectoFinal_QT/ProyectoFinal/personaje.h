@@ -21,13 +21,14 @@ class personaje : public QObject, public QGraphicsItem
     float dt=0; //tamanio de paso para movimiento parabolico
     float g=9.81; //gravedad
     bool salto=false;
+    bool caer=false;
     int lado=90; //provisional
     int vidas=3;
     int balas=0;
     int granadas=0;
 
 public slots:
-    //void colisionBloques(QList<bloque*>bloques);
+    void gravedad();
 
 public:
     personaje();
@@ -38,11 +39,10 @@ public:
 
     void MovDerecha();
     void MovIzquierda();
-    void gravedad();
+
     void saltar();
     void caida();
     void sinCaida(int posyBloque);
-    //void colisionBloques(QList<bloque*>bloques);
 
     int getPosx() const;
     void setPosx(int value);
@@ -56,14 +56,12 @@ public:
     void setGranadas(int value);
     bool getSalto() const;
     void setSalto(bool value);
+    bool getCaer() const;
+    void setCaer(bool value);
 
-    QTimer *timerColisiones;
     QTimer *timer;
     QPixmap *pixmap;
-    float filIm,colIm;
-
-
-
+    float filIm,colIm;  
 };
 
 #endif // PERSONAJE_H

@@ -54,6 +54,7 @@ private:
     int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2
     void keyPressEvent(QKeyEvent *evento);
-    bloque *bloqueColisionado;
+    bloque *bloqueColisionado,*bloquePrueba;
+    bool flag=false; //test
 };
 #endif // MAINWINDOW_H

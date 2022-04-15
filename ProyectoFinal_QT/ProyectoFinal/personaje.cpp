@@ -74,10 +74,6 @@ personaje::personaje(int x, int y)
 
     timer = new QTimer;
     connect(timer,&QTimer::timeout,this,&personaje::gravedad);
-    timerColisiones = new QTimer;
-//    connect(timerColisiones,&QTimer::timeout,this,&personaje::colisionBloques);
-//    timerColisiones->start(100);
-
 }
 
 QRectF personaje::boundingRect() const
@@ -101,6 +97,16 @@ void personaje::MovIzquierda()
 {
     posx-=velx;
     setPos(posx,posy);
+}
+
+bool personaje::getCaer() const
+{
+    return caer;
+}
+
+void personaje::setCaer(bool value)
+{
+    caer = value;
 }
 
 void personaje::gravedad()
@@ -137,10 +143,10 @@ void personaje::caida()
 
 void personaje::sinCaida(int posyBloque)
 {
-        dt=0;
-        timer->stop();
-        posy=posyBloque-90;
-        setPos(posx,posy);
+    dt=0;
+    timer->stop();
+    posy=posyBloque-90;
+    setPos(posx,posy);
 }
 
 
