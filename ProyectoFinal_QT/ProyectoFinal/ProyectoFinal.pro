@@ -30,13 +30,10 @@ HEADERS += \
     alien2.h \
     bloque.h \
     bullet.h \
-<<<<<<< HEAD
     mainwindow.h \
-    personaje.h
-=======
+    personaje.h \
     granade.h \
     mainwindow.h
->>>>>>> 3b604c6d202fce649660e2b4c5828108039c3c9b
 
 FORMS += \
     mainwindow.ui
