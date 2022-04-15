@@ -19,6 +19,7 @@ class alien1: public QGraphicsItem
 public slots:
     void Movimiento();
 
+
 public:
     alien1();
     alien1(int x, int y, int lado, float a, float w, float u);

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+<<<<<<< HEAD
         <file>personaje/Attack_000.png</file>
         <file>personaje/Attack_000_Left.png</file>
         <file>personaje/Attack_001.png</file>
@@ -47,5 +48,8 @@
         <file>personaje/Run_008_Left.png</file>
         <file>personaje/Run_009.png</file>
         <file>personaje/Run_009_Left.png</file>
+=======
+        <file>personaje/hand_grenade_01.png</file>
+>>>>>>> 3b604c6d202fce649660e2b4c5828108039c3c9b
     </qresource>
 </RCC>
