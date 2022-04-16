@@ -185,14 +185,17 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     switch (evento->key()) {
     case Qt::Key_D:{
         soldado->MovDerecha();
+        ui->graphicsView->centerOn(soldado->getPosx(),0);
         break;
     }
     case Qt::Key_A:{
         soldado->MovIzquierda();
+        ui->graphicsView->centerOn(soldado->getPosx(),0);
         break;
     }
     case Qt::Key_W:{
         soldado->saltar();
+        ui->graphicsView->centerOn(soldado->getPosx(),0);
         break;
     }
     case Qt::Key_I:{

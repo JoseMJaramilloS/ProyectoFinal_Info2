@@ -130,7 +130,7 @@ void personaje::gravedad()
 void personaje::saltar()
 {
     vely0=8;
-    timer->start(10);
+    timer->start(8);
     salto=true;
 
 }
@@ -138,7 +138,7 @@ void personaje::saltar()
 void personaje::caida()
 {
     vely0=0;
-    timer->start(10);
+    timer->start(8);
 }
 
 void personaje::sinCaida(int posyBloque)

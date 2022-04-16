@@ -44,7 +44,7 @@ void vida::Movimiento()
 
     if(dt>=2*M_PI) dt=0;
     posx = posx0 + 80*cos(dt);
-    posy = posy0 + signoAleatorio*80*sin(dt);
+    posy = posy0 + signoAleatorio*80*sin(dt); // signoAleatorio permite obtener un movimienteo horario o antihorario aleatoriamente
     dt+=0.1;
     //cout<<posy<<endl;
     setPos(posx,posy);
