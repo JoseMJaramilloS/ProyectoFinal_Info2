@@ -115,7 +115,7 @@ void personaje::gravedad()
     vely = -(vely0-g*dt);
     posy += -(vely0*dt - 0.5*g*pow(dt,2)); // el SR esta invertido rpcto al eje y
     setPos(posx,posy);
-    cout<<"vely: "<<vely<<" posy: "<<posy<<" "<<0.5*g*pow(dt,2)<<endl;
+    //cout<<"vely: "<<vely<<" posy: "<<posy<<" "<<0.5*g*pow(dt,2)<<endl;
 
 //    if(posy>720-90-90) { // Restriccion del piso (temporal)
 //        dt=0;

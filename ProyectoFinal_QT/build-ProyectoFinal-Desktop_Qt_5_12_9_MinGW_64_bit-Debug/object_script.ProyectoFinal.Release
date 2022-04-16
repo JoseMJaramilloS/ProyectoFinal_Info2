@@ -7,6 +7,7 @@ release/main.o
 release/mainwindow.o
 release/municion.o
 release/personaje.o
+release/vida.o
 release/qrc_alien.o
 release/qrc_mapa.o
 release/qrc_personaje.o

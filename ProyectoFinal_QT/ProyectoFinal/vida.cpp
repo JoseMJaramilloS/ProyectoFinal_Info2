@@ -26,6 +26,7 @@ vida::vida(int x, int y, int lado)
     this->lado=lado;
     this->posx0=x;
     this->posy0=y;
+    signoAleatorio=pow(-1,1+rand()%2);
     setPos(posx,posy);
 }
 QRectF vida::boundingRect() const
@@ -38,13 +39,13 @@ void vida::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     QPixmap pxMap(":/mapa/vida.png");
     painter->drawPixmap(boundingRect(),pxMap,pxMap.rect());
 }
-void vida::MovimientoVida()
+void vida::Movimiento()
 {
 
-    for(int dt; dt<=500; dt++){
-    posx =   80*cos(dt);
-    posy =  80*sin(dt);
-    }
+    if(dt>=2*M_PI) dt=0;
+    posx = posx0 + 80*cos(dt);
+    posy = posy0 + signoAleatorio*80*sin(dt);
+    dt+=0.1;
     //cout<<posy<<endl;
     setPos(posx,posy);
 

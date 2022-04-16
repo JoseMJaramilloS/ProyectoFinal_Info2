@@ -24,16 +24,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
     timer->start(10);
 
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
 
-    vidas = new vida();
-    scene->addItem(vidas);
-
-    //muni= new municion();
-    //scene->addItem(muni);
+    //vidas = new vida(100,0,90);
+    //scene->addItem(vidas);
 
 }
 
@@ -44,7 +42,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::generarMapa()
 {
-    int ultimaAmmo=0;
+    int ultimaAmmo=0,ultimaVida=0;
     bool flag=false,cond;
     for (int i=0,j=0;i<=(dim_x*10);i+=90) {
 
@@ -88,6 +86,13 @@ void MainWindow::generarMapa()
             scene->addItem(municiones.back());
         }
 
+        if(rand()%9==1 && i>(90*7) && (i-ultimaVida)>=500){
+            // Generacion de vidas
+            cout<<"se crea vida en "<<i<<endl;
+            ultimaVida=i;
+            vidas.push_back(new vida(i,200,60));
+            scene->addItem(vidas.back());
+        }
     }
 }
 
@@ -103,7 +108,7 @@ void MainWindow::movimientoAlien2()
 {
     int dist=5000;
     tiempoAlien2++;
-    if(tiempoAlien2==2){ // Se puede controlar la velocidad de moviemiento
+    if(tiempoAlien2==2){ // Se puede controlar la velocidad de movimiento
         for (iter_aliens2=aliens2.begin();iter_aliens2!=aliens2.end();iter_aliens2++) {
             if (mov<dist && sentidoAlien2==true) {
                 (*iter_aliens2)->MovDerecha();
@@ -127,16 +132,23 @@ void MainWindow::movimientoAlien2()
     }
 }
 
-void MainWindow::MovVida()
+void MainWindow::movimientoVida()
 {
-    vidas->MovimientoVida();
+    tiempoVidas++;
+    if (tiempoVidas==2) { // Se puede controlar la velocidad de movimiento
+        for (iter_vidas=vidas.begin();iter_vidas!=vidas.end();iter_vidas++) {
+            (*iter_vidas)->Movimiento();
+        }
+        tiempoVidas=0;
+    }
+
 }
 
 bool MainWindow::colisionBloques()
 {
     for (int i=0;i<bloques.length();i++) {
         if (bloques.at(i)->collidesWithItem(soldado)) {
-            cout<<"Colision"<<endl;
+            //cout<<"Colision"<<endl;
             bloqueColisionado=bloques.at(i);
             return true;
         }
@@ -147,23 +159,23 @@ bool MainWindow::colisionBloques()
 void MainWindow::efectoCaida()
 {
 
-    cout<<"x: "<<int(soldado->getPosx())<<" y: "<<int(soldado->getPosy())<<endl;
+    //cout<<"x: "<<int(soldado->getPosx())<<" y: "<<int(soldado->getPosy())<<endl;
 
     if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE
         soldado->caida();
         soldado->setCaer(true);
-        cout<<"Cae"<<endl;
+        //cout<<"Cae"<<endl;
     }
     else if (colisionBloques() && !(soldado->getSalto())) { //colision: TRUE, salto: FALSE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setCaer(false);
-        cout<<"No Cae1"<<endl;
+        //cout<<"No Cae1"<<endl;
     }
     else if (colisionBloques() && soldado->getSalto()) { //colision: TRUE, salto: TRUE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setSalto(false);
         soldado->setCaer(false);
-        cout<<"No Cae2"<<endl;
+        //cout<<"No Cae2"<<endl;
     }
 
 }
@@ -173,23 +185,14 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     switch (evento->key()) {
     case Qt::Key_D:{
         soldado->MovDerecha();
-//        if(!colisionBloques() && !(soldado->getSalto())){
-//            soldado->caida();
-//        }
-//        else if (colisionBloques() && !(soldado->getSalto())) {
-//            soldado->sinCaida();
-//        }
-
         break;
     }
     case Qt::Key_A:{
         soldado->MovIzquierda();
-        //soldado->colisionBloques(bloques);
         break;
     }
     case Qt::Key_W:{
         soldado->saltar();
-        //soldado->colisionBloques(bloques);
         break;
     }
     case Qt::Key_I:{

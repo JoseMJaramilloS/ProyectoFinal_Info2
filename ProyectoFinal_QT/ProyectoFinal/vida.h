@@ -10,11 +10,12 @@
 class vida:public QObject, public QGraphicsPixmapItem
 {
     float posx,posy,posx0,posy0;
-    float dt;
+    float dt=0;
     int lado;
+    int signoAleatorio;
 
 public slots:
-    void MovimientoVida();
+    void Movimiento();
 
 
 public:

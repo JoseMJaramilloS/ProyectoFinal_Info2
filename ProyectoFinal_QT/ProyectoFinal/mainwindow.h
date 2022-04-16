@@ -33,7 +33,7 @@ public:
 public slots:
     void movimientoAlien1();
     void movimientoAlien2();
-    void MovVida();
+    void movimientoVida();
     bool colisionBloques();
     void efectoCaida();
 
@@ -48,16 +48,15 @@ private:
     QList <alien1*>::Iterator iter_aliens1;
     QList <alien2*>aliens2;
     QList <alien2*>::Iterator iter_aliens2;
-    personaje *soldado;
     QList <municion*>municiones;
     QList <municion*>::Iterator iter_muni;
-    vida *vidas;
-    //municion *muni;
+    QList <vida*>vidas;
+    QList <vida*>::Iterator iter_vidas;
+    personaje *soldado;
     QTimer *timer;
-    int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
+    int tiempoAlien2=0, tiempoVidas=0, mov=0;
     bool sentidoAlien2=true; // Para el movimiento de alien2
     void keyPressEvent(QKeyEvent *evento);
     bloque *bloqueColisionado,*bloquePrueba;
-    bool flag=false; //test
 };
 #endif // MAINWINDOW_H
