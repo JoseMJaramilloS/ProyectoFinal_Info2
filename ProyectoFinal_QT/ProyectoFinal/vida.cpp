@@ -1,11 +1,11 @@
 #include "vida.h"
 
-int vida::getPosx() const
+float vida::getPosx() const
 {
     return posx;
 }
 
-int vida::getPosy() const
+float vida::getPosy() const
 {
     return posy;
 }
@@ -38,7 +38,9 @@ void vida::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
 {
     QPixmap pxMap(":/mapa/vida.png");
     painter->drawPixmap(boundingRect(),pxMap,pxMap.rect());
+    //painter->drawRect(boundingRect());
 }
+
 void vida::Movimiento()
 {
 

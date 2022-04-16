@@ -17,7 +17,6 @@ class vida:public QObject, public QGraphicsPixmapItem
 public slots:
     void Movimiento();
 
-
 public:
     vida();
     vida(int x, int y, int lado);
@@ -25,8 +24,8 @@ public:
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 
-    int getPosx() const;
-    int getPosy() const;
+    float getPosx() const;
+    float getPosy() const;
 
 };
 #endif // VIDA_H

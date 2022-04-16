@@ -24,16 +24,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionAliens()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(colisionBonificaciones()));
+    //connect(timer, SIGNAL(timeout()),this,SLOT(colisionVidas()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
     timer->start(10);
 
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
-
-    //vidas = new vida(100,0,90);
-    //scene->addItem(vidas);
-
 }
 
 MainWindow::~MainWindow()
@@ -97,7 +95,6 @@ void MainWindow::generarMapa()
     }
 }
 
-
 void MainWindow::movimientoAlien1()
 {
     for (iter_aliens1=aliens1.begin();iter_aliens1!=aliens1.end();iter_aliens1++) {
@@ -142,7 +139,6 @@ void MainWindow::movimientoVida()
         }
         tiempoVidas=0;
     }
-
 }
 
 bool MainWindow::colisionBloques()
@@ -191,6 +187,50 @@ bool MainWindow::colisionAliens()
     }
     return false;
 }
+
+void MainWindow::colisionBonificaciones()
+{
+    tiempoBonif++;
+    if (tiempoBonif==40) {// Divisor de reloj
+        for (iter_muni=municiones.begin(); iter_muni!=municiones.end(); iter_muni++) {
+            if ((*iter_muni) -> collidesWithItem(soldado)) {
+                cout<<"Colision con municion"<<endl;
+                soldado->setBalas(soldado->getBalas()+1);
+                cout<<"balas: "<<soldado->getBalas()<<endl;
+                scene->removeItem(*iter_muni);
+                municiones.erase(iter_muni);
+            }
+        }
+        for (iter_vidas2=vidas.begin(); iter_vidas2!=vidas.end(); iter_vidas2++) {
+            if ((*iter_vidas2)->collidesWithItem(soldado)) {
+                cout<<"Colision con vida"<<endl;
+                soldado->setVidas(soldado->getVidas()+1);
+                cout<<"vidas: "<<soldado->getVidas()<<endl;
+                scene->removeItem(*iter_vidas2);
+                vidas.erase(iter_vidas2);
+            }
+        }
+        tiempoBonif=0;
+    }
+}
+
+//void MainWindow::colisionVidas()
+//{
+//    tiempoBonif++;
+//    if (tiempoBonif==40) {// Divisor de reloj
+//        for (iter_vidas2=vidas.begin(); iter_vidas2!=vidas.end(); iter_vidas2++) {
+//            cout<<*iter_vidas2<<endl;
+//            if ((*iter_vidas2)->collidesWithItem(soldado)) {
+//                cout<<"Colision con vida"<<endl;
+//                soldado->setVidas(soldado->getVidas()+1);
+//                cout<<"vidas: "<<soldado->getVidas()<<endl;
+//                scene->removeItem(*iter_vidas2);
+//                vidas.erase(iter_vidas2);
+//            }
+//        }
+//        tiempoBonif=0;
+//    }
+//}
 
 void MainWindow::efectoCaida()
 {
