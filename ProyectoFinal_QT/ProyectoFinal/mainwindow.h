@@ -35,6 +35,7 @@ public slots:
     void movimientoAlien2();
     void movimientoVida();
     bool colisionBloques();
+    bool colisionAliens();
     void efectoCaida();
 
 private:
@@ -54,8 +55,10 @@ private:
     QList <vida*>::Iterator iter_vidas;
     personaje *soldado;
     QTimer *timer;
-    int tiempoAlien2=0, tiempoVidas=0, mov=0;
+    int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0, mov=0;
+    int countDanio=0;
     bool sentidoAlien2=true; // Para el movimiento de alien2
+    bool danio=false; // Para reducir vida del personaje
     void keyPressEvent(QKeyEvent *evento);
     bloque *bloqueColisionado,*bloquePrueba;
 };

@@ -43,6 +43,8 @@ public:
     void saltar();
     void caida();
     void sinCaida(int posyBloque);
+    void fueraMapa();
+    void danio();
 
     int getPosx() const;
     void setPosx(int value);

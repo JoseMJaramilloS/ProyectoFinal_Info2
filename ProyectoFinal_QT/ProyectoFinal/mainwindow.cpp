@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(colisionAliens()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
     timer->start(10);
@@ -156,12 +157,47 @@ bool MainWindow::colisionBloques()
     return false;
 }
 
+bool MainWindow::colisionAliens()
+{
+    tiempoDanio++;
+    if (tiempoDanio==80) {// Divisor de reloj
+        tiempoDanio=0;
+        if (danio==true) {
+            countDanio++;
+            if (countDanio==3) { // Conteo de danio, para no bajar tantas vidas con un solo impacto de alien
+                countDanio=0;
+                danio=false;
+            }
+        }
+        else{
+            for (int i=0;i<aliens1.length();i++) {
+                if (aliens1.at(i)->collidesWithItem(soldado)) { // Colision con aliens1
+                    cout<<"Colision con alien1"<<endl;
+                    soldado->setVidas(soldado->getVidas()-1);
+                    cout<<"vidas: "<<soldado->getVidas()<<endl;
+                    danio=true;
+                }
+            }
+            for (int i=0;i<aliens2.length();i++) {
+                if (aliens2.at(i)->collidesWithItem(soldado)) { // Colision con aliens2
+                    cout<<"Colision con alien2"<<endl;
+                    soldado->setVidas(soldado->getVidas()-1);
+                    cout<<"vidas: "<<soldado->getVidas()<<endl;
+                    danio= true;
+                }
+            }
+            return false;
+        }
+    }
+    return false;
+}
+
 void MainWindow::efectoCaida()
 {
 
     //cout<<"x: "<<int(soldado->getPosx())<<" y: "<<int(soldado->getPosy())<<endl;
 
-    if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE
+    if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE, caer: FALSE;
         soldado->caida();
         soldado->setCaer(true);
         //cout<<"Cae"<<endl;
@@ -176,6 +212,12 @@ void MainWindow::efectoCaida()
         soldado->setSalto(false);
         soldado->setCaer(false);
         //cout<<"No Cae2"<<endl;
+    }
+    else if (!colisionBloques() && soldado->getPosy()>720) { //colision: FALSE, fuera de mapa
+        soldado->fueraMapa();
+        ui->graphicsView->centerOn(soldado->getPosx(),0);
+        soldado->setSalto(false);
+        soldado->setCaer(false);
     }
 
 }

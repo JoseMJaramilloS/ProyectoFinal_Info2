@@ -115,22 +115,14 @@ void personaje::gravedad()
     vely = -(vely0-g*dt);
     posy += -(vely0*dt - 0.5*g*pow(dt,2)); // el SR esta invertido rpcto al eje y
     setPos(posx,posy);
-    //cout<<"vely: "<<vely<<" posy: "<<posy<<" "<<0.5*g*pow(dt,2)<<endl;
-
-//    if(posy>720-90-90) { // Restriccion del piso (temporal)
-//        dt=0;
-//        timer->stop();
-//        posy=720-90-90;
-//        setPos(posx,posy);
-//        salto=false;
-//    }
+    //cout<<"vely0: "<<vely0<<" vely: "<<vely<<" posy: "<<posy<<endl;
 
 }
 
 void personaje::saltar()
 {
     vely0=8;
-    timer->start(8);
+    timer->start(10);
     salto=true;
 
 }
@@ -138,17 +130,34 @@ void personaje::saltar()
 void personaje::caida()
 {
     vely0=0;
-    timer->start(8);
+    timer->start(10);
 }
 
 void personaje::sinCaida(int posyBloque)
 {
     if(posy+90<=posyBloque+10){
-        dt=0;
         timer->stop();
+        dt=0;
+        vely0=0;
         posy=posyBloque-90;
         setPos(posx,posy);
     }
+}
+
+void personaje::fueraMapa()
+{
+    timer->stop();
+    dt=0;
+    vely0=0;
+    vely=0;
+    posx=0;
+    posy=720-90-90;
+    setPos(posx,posy);
+}
+
+void personaje::danio()
+{
+
 }
 
 
