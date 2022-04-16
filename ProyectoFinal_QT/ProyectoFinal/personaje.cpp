@@ -143,10 +143,12 @@ void personaje::caida()
 
 void personaje::sinCaida(int posyBloque)
 {
-    dt=0;
-    timer->stop();
-    posy=posyBloque-90;
-    setPos(posx,posy);
+    if(posy+90<=posyBloque+10){
+        dt=0;
+        timer->stop();
+        posy=posyBloque-90;
+        setPos(posx,posy);
+    }
 }
 
 

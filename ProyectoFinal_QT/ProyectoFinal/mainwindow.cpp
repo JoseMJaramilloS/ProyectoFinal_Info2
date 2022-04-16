@@ -88,7 +88,7 @@ void MainWindow::generarMapa()
 
         if(rand()%9==1 && i>(90*7) && (i-ultimaVida)>=500){
             // Generacion de vidas
-            cout<<"se crea vida en "<<i<<endl;
+            //cout<<"se crea vida en "<<i<<endl;
             ultimaVida=i;
             vidas.push_back(new vida(i,200,60));
             scene->addItem(vidas.back());
