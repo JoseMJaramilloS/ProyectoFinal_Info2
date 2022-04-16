@@ -1326,23 +1326,7 @@ release/mainwindow.o: ../ProyectoFinal/mainwindow.cpp ../ProyectoFinal/mainwindo
 		C:/Qt/5.12.2/mingw73_64/include/QtCore/QObject \
 		../ProyectoFinal/personaje.h \
 		../ProyectoFinal/municion.h \
-		ui_mainwindow.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtCore/QVariant \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/QApplication \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qapplication.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtCore/qcoreapplication.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtCore/qeventloop.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qdesktopwidget.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtGui/qguiapplication.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtGui/qinputmethod.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/QMenuBar \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qmenubar.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qmenu.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qaction.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qactiongroup.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/QStatusBar \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/qstatusbar.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtWidgets/QWidget
+		ui_mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\mainwindow.o ..\ProyectoFinal\mainwindow.cpp
 
 release/municion.o: ../ProyectoFinal/municion.cpp ../ProyectoFinal/municion.h \
@@ -1546,7 +1530,8 @@ release/personaje.o: ../ProyectoFinal/personaje.cpp ../ProyectoFinal/personaje.h
 		C:/Qt/5.12.2/mingw73_64/include/QtGui/QPixmap \
 		C:/Qt/5.12.2/mingw73_64/include/QtCore/QTimer \
 		C:/Qt/5.12.2/mingw73_64/include/QtCore/qtimer.h \
-		C:/Qt/5.12.2/mingw73_64/include/QtCore/qbasictimer.h
+		C:/Qt/5.12.2/mingw73_64/include/QtCore/qbasictimer.h \
+		../ProyectoFinal/bloque.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\personaje.o ..\ProyectoFinal\personaje.cpp
 
 release/qrc_alien.o: release/qrc_alien.cpp 

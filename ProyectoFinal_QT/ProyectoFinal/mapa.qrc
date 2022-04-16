@@ -6,5 +6,6 @@
         <file>mapa/Bullet.png</file>
         <file>mapa/Drakir6.png</file>
         <file>mapa/Ammo.png</file>
+        <file>mapa/vida.png</file>
     </qresource>
 </RCC>

@@ -24,7 +24,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     municion.cpp \
-    personaje.cpp
+    personaje.cpp \
+    vida.cpp
 
 HEADERS += \
     alien1.h \
@@ -35,7 +36,8 @@ HEADERS += \
     municion.h \
     personaje.h \
     granade.h \
-    mainwindow.h
+    mainwindow.h \
+    vida.h
 
 FORMS += \
     mainwindow.ui

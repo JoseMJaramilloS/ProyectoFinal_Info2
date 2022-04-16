@@ -29,6 +29,9 @@ MainWindow::MainWindow(QWidget *parent)
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
 
+    vidas = new vida();
+    scene->addItem(vidas);
+
     //muni= new municion();
     //scene->addItem(muni);
 
@@ -122,6 +125,11 @@ void MainWindow::movimientoAlien2()
         }
         tiempoAlien2=0;
     }
+}
+
+void MainWindow::MovVida()
+{
+    vidas->MovimientoVida();
 }
 
 bool MainWindow::colisionBloques()

@@ -12,6 +12,7 @@
 #include "bloque.h"
 #include "alien1.h"
 #include "alien2.h"
+#include "vida.h"
 #include "personaje.h"
 #include "municion.h"
 
@@ -32,6 +33,7 @@ public:
 public slots:
     void movimientoAlien1();
     void movimientoAlien2();
+    void MovVida();
     bool colisionBloques();
     void efectoCaida();
 
@@ -49,6 +51,7 @@ private:
     personaje *soldado;
     QList <municion*>municiones;
     QList <municion*>::Iterator iter_muni;
+    vida *vidas;
     //municion *muni;
     QTimer *timer;
     int tiempoAlien2=0, mov=0; // Para el movimiento de alien2
