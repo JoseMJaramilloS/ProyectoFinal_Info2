@@ -7,7 +7,7 @@
 #include <math.h>
 #include <iostream>
 
-class vida:public QObject, public QGraphicsPixmapItem
+class vida : public QGraphicsItem
 {
     float posx,posy,posx0,posy0;
     float dt=0;
