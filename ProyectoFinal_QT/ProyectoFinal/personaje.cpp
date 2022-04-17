@@ -71,6 +71,7 @@ personaje::personaje(int x, int y)
     this->posx=x;
     this->posy=y;
     setPos(x,y);
+    pixmap= new QPixmap(":/personaje/Idle_000.png");
 
     timer = new QTimer;
     connect(timer,&QTimer::timeout,this,&personaje::gravedad);
@@ -83,20 +84,23 @@ QRectF personaje::boundingRect() const
 
 void personaje::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QPixmap pxMap(":/personaje/Idle_000.png");
-    painter->drawPixmap(boundingRect(),pxMap,pxMap.rect());
+    painter->drawPixmap(boundingRect(),*pixmap,pixmap->rect());
 }
 
 void personaje::MovDerecha()
 {
     posx+=velx;
     setPos(posx,posy);
+    pixmap->load(":/personaje/Idle_000.png");
+    sentidoPersonaje=true;
 }
 
 void personaje::MovIzquierda()
 {
     posx-=velx;
     setPos(posx,posy);
+    pixmap->load(":/personaje/Idle_000_Left.png");
+    sentidoPersonaje=false;
 }
 
 bool personaje::getCaer() const
@@ -107,6 +111,16 @@ bool personaje::getCaer() const
 void personaje::setCaer(bool value)
 {
     caer = value;
+}
+
+bool personaje::getSentidoPersonaje() const
+{
+    return sentidoPersonaje;
+}
+
+void personaje::setSentidoPersonaje(bool value)
+{
+    sentidoPersonaje = value;
 }
 
 void personaje::gravedad()
@@ -155,9 +169,5 @@ void personaje::fueraMapa()
     setPos(posx,posy);
 }
 
-void personaje::danio()
-{
-
-}
 
 

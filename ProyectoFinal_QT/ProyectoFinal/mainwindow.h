@@ -15,6 +15,7 @@
 #include "vida.h"
 #include "personaje.h"
 #include "municion.h"
+#include "bullet.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -55,6 +56,8 @@ private:
     QList <vida*>vidas;
     QList <vida*>::Iterator iter_vidas;
     QList <vida*>::Iterator iter_vidas2; // Porque no se puede usar el mismo iterador al tiempo
+    QList <bullet*>bullets;
+    QList <bullet*>::Iterator iter_bullets;
     personaje *soldado;
     QTimer *timer;
     int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0,tiempoBonif=0; // Contadores de reloj

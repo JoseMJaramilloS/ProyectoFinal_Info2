@@ -155,7 +155,7 @@ bool MainWindow::colisionBloques()
 bool MainWindow::colisionAliens()
 {
     tiempoDanio++;
-    if (tiempoDanio==80) {// Divisor de reloj
+    if (tiempoDanio==80) {// Divisor de frecuencia
         tiempoDanio=0;
         if (danio==true) {
             countDanio++;
@@ -190,7 +190,7 @@ bool MainWindow::colisionAliens()
 void MainWindow::colisionBonificaciones()
 {
     tiempoBonif++;
-    if (tiempoBonif==20) {// Divisor de reloj
+    if (tiempoBonif==20) {// Divisor de frecuencia
         for (iter_muni=municiones.begin(); iter_muni!=municiones.end(); iter_muni++) {
             if ((*iter_muni) -> collidesWithItem(soldado)) {
                 //cout<<"Colision con municion"<<endl;
@@ -221,25 +221,25 @@ void MainWindow::efectoCaida()
     if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE, caer: FALSE;
         soldado->caida();
         soldado->setCaer(true);
-        cout<<"Cae"<<endl;
+        //cout<<"Cae"<<endl;
     }
     else if (colisionBloques() && !(soldado->getSalto())) { //colision: TRUE, salto: FALSE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setCaer(false);
-        cout<<"No Cae1"<<endl;
+        //cout<<"No Cae1"<<endl;
     }
     else if (colisionBloques() && soldado->getSalto()) { //colision: TRUE, salto: TRUE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setSalto(false);
         soldado->setCaer(false);
-        cout<<"No Cae2"<<endl;
+        //cout<<"No Cae2"<<endl;
     }
     else if (!colisionBloques() && soldado->getPosy()>720) { //colision: FALSE, fuera de mapa
         soldado->fueraMapa();
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         soldado->setSalto(false);
         soldado->setCaer(false);
-        cout<<"Fuera de mapa"<<endl;
+        //cout<<"Fuera de mapa"<<endl;
     }
 
 }
@@ -264,6 +264,18 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     }
     case Qt::Key_I:{
         //disparar
+        if(soldado->getBalas()>0){ // Si tiene balas
+            if (soldado->getSentidoPersonaje()==true) { // disparo a la derecha
+                bullets.push_back(new bullet(soldado->getPosx()+90,soldado->getPosy()+50,true,scene,bullets));
+                scene->addItem(bullets.back());
+
+            }
+            else if (soldado->getSentidoPersonaje()==false) { // disparo a la izquierda
+                bullets.push_back(new bullet(soldado->getPosx(),soldado->getPosy()+50,false,scene,bullets));
+                scene->addItem(bullets.back());
+            }
+            soldado->setBalas(soldado->getBalas()-1); // Se resta una bala
+        }
         break;
     }
     case Qt::Key_O:{

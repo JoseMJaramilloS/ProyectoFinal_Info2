@@ -22,10 +22,13 @@ class personaje : public QObject, public QGraphicsItem
     float g=9.81; //gravedad
     bool salto=false;
     bool caer=false;
+    bool sentidoPersonaje=true; //true: DERECHA, false: IZQUIERDA
     int lado=90; //provisional
-    int vidas=3;
-    int balas=0;
-    int granadas=0;
+    int vidas=5;
+    int balas=5;
+    int granadas=0;    
+    QTimer *timer;
+    QPixmap *pixmap;
 
 public slots:
     void gravedad();
@@ -39,13 +42,12 @@ public:
 
     void MovDerecha();
     void MovIzquierda();
-
     void saltar();
     void caida();
     void sinCaida(int posyBloque);
     void fueraMapa();
-    void danio();
 
+    float filIm,colIm;
     int getPosx() const;
     void setPosx(int value);
     int getPosy() const;
@@ -60,10 +62,10 @@ public:
     void setSalto(bool value);
     bool getCaer() const;
     void setCaer(bool value);
+    bool getSentidoPersonaje() const;
+    void setSentidoPersonaje(bool value);
 
-    QTimer *timer;
-    QPixmap *pixmap;
-    float filIm,colIm;  
+
 };
 
 #endif // PERSONAJE_H
