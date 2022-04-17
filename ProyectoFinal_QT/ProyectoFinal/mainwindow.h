@@ -37,7 +37,6 @@ public slots:
     bool colisionBloques();
     bool colisionAliens();
     void colisionBonificaciones();
-//    void colisionVidas();
     void efectoCaida();
 
 private:

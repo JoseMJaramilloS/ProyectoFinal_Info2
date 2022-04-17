@@ -135,7 +135,7 @@ void personaje::caida()
 
 void personaje::sinCaida(int posyBloque)
 {
-    if(posy+90<=posyBloque+10){
+    if(posy+90<=posyBloque+20){
         timer->stop();
         dt=0;
         vely0=0;

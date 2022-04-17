@@ -25,7 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionAliens()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBonificaciones()));
-    //connect(timer, SIGNAL(timeout()),this,SLOT(colisionVidas()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
     timer->start(10);
@@ -168,7 +167,7 @@ bool MainWindow::colisionAliens()
         else{
             for (int i=0;i<aliens1.length();i++) {
                 if (aliens1.at(i)->collidesWithItem(soldado)) { // Colision con aliens1
-                    cout<<"Colision con alien1"<<endl;
+                    //cout<<"Colision con alien1"<<endl;
                     soldado->setVidas(soldado->getVidas()-1);
                     cout<<"vidas: "<<soldado->getVidas()<<endl;
                     danio=true;
@@ -176,7 +175,7 @@ bool MainWindow::colisionAliens()
             }
             for (int i=0;i<aliens2.length();i++) {
                 if (aliens2.at(i)->collidesWithItem(soldado)) { // Colision con aliens2
-                    cout<<"Colision con alien2"<<endl;
+                    //cout<<"Colision con alien2"<<endl;
                     soldado->setVidas(soldado->getVidas()-1);
                     cout<<"vidas: "<<soldado->getVidas()<<endl;
                     danio= true;
@@ -191,10 +190,10 @@ bool MainWindow::colisionAliens()
 void MainWindow::colisionBonificaciones()
 {
     tiempoBonif++;
-    if (tiempoBonif==40) {// Divisor de reloj
+    if (tiempoBonif==20) {// Divisor de reloj
         for (iter_muni=municiones.begin(); iter_muni!=municiones.end(); iter_muni++) {
             if ((*iter_muni) -> collidesWithItem(soldado)) {
-                cout<<"Colision con municion"<<endl;
+                //cout<<"Colision con municion"<<endl;
                 soldado->setBalas(soldado->getBalas()+1);
                 cout<<"balas: "<<soldado->getBalas()<<endl;
                 scene->removeItem(*iter_muni);
@@ -203,7 +202,7 @@ void MainWindow::colisionBonificaciones()
         }
         for (iter_vidas2=vidas.begin(); iter_vidas2!=vidas.end(); iter_vidas2++) {
             if ((*iter_vidas2)->collidesWithItem(soldado)) {
-                cout<<"Colision con vida"<<endl;
+                //cout<<"Colision con vida"<<endl;
                 soldado->setVidas(soldado->getVidas()+1);
                 cout<<"vidas: "<<soldado->getVidas()<<endl;
                 scene->removeItem(*iter_vidas2);
@@ -214,24 +213,6 @@ void MainWindow::colisionBonificaciones()
     }
 }
 
-//void MainWindow::colisionVidas()
-//{
-//    tiempoBonif++;
-//    if (tiempoBonif==40) {// Divisor de reloj
-//        for (iter_vidas2=vidas.begin(); iter_vidas2!=vidas.end(); iter_vidas2++) {
-//            cout<<*iter_vidas2<<endl;
-//            if ((*iter_vidas2)->collidesWithItem(soldado)) {
-//                cout<<"Colision con vida"<<endl;
-//                soldado->setVidas(soldado->getVidas()+1);
-//                cout<<"vidas: "<<soldado->getVidas()<<endl;
-//                scene->removeItem(*iter_vidas2);
-//                vidas.erase(iter_vidas2);
-//            }
-//        }
-//        tiempoBonif=0;
-//    }
-//}
-
 void MainWindow::efectoCaida()
 {
 
@@ -240,24 +221,25 @@ void MainWindow::efectoCaida()
     if(!colisionBloques() && !(soldado->getSalto()) && !(soldado->getCaer())){//colision: FALSE, salto: FALSE, caer: FALSE;
         soldado->caida();
         soldado->setCaer(true);
-        //cout<<"Cae"<<endl;
+        cout<<"Cae"<<endl;
     }
     else if (colisionBloques() && !(soldado->getSalto())) { //colision: TRUE, salto: FALSE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setCaer(false);
-        //cout<<"No Cae1"<<endl;
+        cout<<"No Cae1"<<endl;
     }
     else if (colisionBloques() && soldado->getSalto()) { //colision: TRUE, salto: TRUE
         soldado->sinCaida(bloqueColisionado->getPosy());
         soldado->setSalto(false);
         soldado->setCaer(false);
-        //cout<<"No Cae2"<<endl;
+        cout<<"No Cae2"<<endl;
     }
     else if (!colisionBloques() && soldado->getPosy()>720) { //colision: FALSE, fuera de mapa
         soldado->fueraMapa();
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         soldado->setSalto(false);
         soldado->setCaer(false);
+        cout<<"Fuera de mapa"<<endl;
     }
 
 }
