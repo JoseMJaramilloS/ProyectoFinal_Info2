@@ -65,7 +65,7 @@ private:
     //QList <desplegarInfo>
     personaje *soldado;
     QTimer *timer;
-    int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0,tiempoBonif=0; // Contadores de reloj
+    int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0,tiempoBonif=0, tiempoGlobal=0, tiempo=300; // Contadores de reloj
     int countDanio=0; // Para reducir vida del personaje
     bool danio=false; // Para reducir vida del personaje
     int mov=0; // Para el movimiento de alien2
@@ -75,6 +75,7 @@ private:
     QString str,str2;
     desplegarInfo *textoVidas;
     desplegarInfo *textoBalas;
+    desplegarInfo *textoTiempo;
 
 };
 #endif // MAINWINDOW_H

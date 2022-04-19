@@ -28,6 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBonificaciones()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBalas()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(tiempoJuego()));
 
     timer->start(10);
 
@@ -38,8 +39,9 @@ MainWindow::MainWindow(QWidget *parent)
     textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
     scene->addItem(textoVidas);
     textoBalas= new desplegarInfo(800,24,"Balas: "+ str.setNum(soldado->getBalas()));
-    scene->addItem(textoBalas);
-
+    scene->addItem(textoBalas);    
+    textoTiempo= new desplegarInfo(400,24,str.setNum(tiempo));
+    scene->addItem(textoTiempo);
 }
 
 MainWindow::~MainWindow()
@@ -279,7 +281,12 @@ void MainWindow::efectoCaida()
 
 void MainWindow::tiempoJuego()
 {
-
+    tiempoGlobal++;
+    if (tiempoGlobal==100) {
+        tiempo--;
+        textoTiempo->cambiarTexto(str.setNum(tiempo));
+        tiempoGlobal=0;
+    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
