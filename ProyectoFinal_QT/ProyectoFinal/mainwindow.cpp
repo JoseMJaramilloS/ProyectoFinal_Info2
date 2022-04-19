@@ -201,7 +201,7 @@ bool MainWindow::colisionAliens()
 void MainWindow::colisionBonificaciones()
 {
     tiempoBonif++;
-    if (tiempoBonif==25) {// Divisor de frecuencia
+    if (tiempoBonif==1) {// Divisor de frecuencia
         for (iter_muni=municiones.begin(); iter_muni!=municiones.end(); iter_muni++) {
             if ((*iter_muni) -> collidesWithItem(soldado)) {
                 //cout<<"Colision con municion"<<endl;
@@ -228,9 +228,9 @@ void MainWindow::colisionBonificaciones()
 
 void MainWindow::colisionBalas()
 {
-    if (!bullets.empty()) { // Si no esta vacio
-        for (iter_bullets=bullets.begin();iter_bullets!=bullets.end();iter_bullets++) {
-            for (iter2_aliens2=aliens2.begin();iter2_aliens2!=aliens2.end();iter2_aliens2++) {
+    if (!bullets.empty()) { // Si no esta vacio       
+        for (iter2_aliens2=aliens2.begin();iter2_aliens2!=aliens2.end();iter2_aliens2++) {
+            for (iter_bullets=bullets.begin();iter_bullets!=bullets.end();iter_bullets++) {
                 if ((*iter2_aliens2)->collidesWithItem(*iter_bullets)) { // Colision con aliens1
                     cout<<"Impacto de bala con alien2"<<endl;
                     (*iter_bullets)->impacto();
@@ -266,6 +266,9 @@ void MainWindow::efectoCaida()
     }
     else if (!colisionBloques() && soldado->getPosy()>720) { //colision: FALSE, fuera de mapa
         soldado->fueraMapa();
+        textoVidas->cambiarTexto("Vidas: "+ str.setNum(soldado->getVidas()));
+        textoVidas->moverTexto(10,24); // Movimiento texto: VIDAS
+        textoBalas->moverTexto(800,24); // Movimiento texto: BALAS
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         soldado->setSalto(false);
         soldado->setCaer(false);

@@ -159,6 +159,7 @@ void personaje::sinCaida(int posyBloque)
 
 void personaje::fueraMapa()
 {
+    vidas--;
     timer->stop();
     dt=0;
     vely0=0;
