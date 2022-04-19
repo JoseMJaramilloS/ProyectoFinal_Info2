@@ -40,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(textoVidas);
     textoBalas= new desplegarInfo(800,24,"Balas: "+ str.setNum(soldado->getBalas()));
     scene->addItem(textoBalas);    
-    textoTiempo= new desplegarInfo(400,24,str.setNum(tiempo));
+    textoTiempo= new desplegarInfo(450,24,str.setNum(tiempo));
     scene->addItem(textoTiempo);
 }
 
@@ -271,6 +271,7 @@ void MainWindow::efectoCaida()
         textoVidas->cambiarTexto("Vidas: "+ str.setNum(soldado->getVidas()));
         textoVidas->moverTexto(10,24); // Movimiento texto: VIDAS
         textoBalas->moverTexto(800,24); // Movimiento texto: BALAS
+        textoTiempo->moverTexto(450,24);
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         soldado->setSalto(false);
         soldado->setCaer(false);
@@ -298,6 +299,7 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         if (soldado->getPosx()>dim_x/2 && soldado->getPosx()<dim_x*10-dim_x/2) {
             textoVidas->moverTexto(textoVidas->getPosx()+10,24); // Movimiento texto: VIDAS
             textoBalas->moverTexto(textoBalas->getPosx()+10,24); // Movimiento texto: BALAS
+            textoTiempo->moverTexto(textoTiempo->getPosx()+10,24);
         }
         break;
     }
@@ -307,6 +309,7 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         if (soldado->getPosx()>dim_x/2 && soldado->getPosx()<dim_x*10-dim_x/2) {
             textoVidas->moverTexto(textoVidas->getPosx()-10,24); // Movimiento texto: VIDAS
             textoBalas->moverTexto(textoBalas->getPosx()-10,24); // Movimiento texto: BALAS
+            textoTiempo->moverTexto(textoTiempo->getPosx()-10,24);
         }
         break;
     }
