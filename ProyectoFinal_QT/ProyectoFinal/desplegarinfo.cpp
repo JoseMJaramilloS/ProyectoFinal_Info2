@@ -1,5 +1,10 @@
 #include "desplegarinfo.h"
 
+int desplegarInfo::getPosx() const
+{
+    return posx;
+}
+
 desplegarInfo::desplegarInfo()
 {
 
@@ -20,7 +25,8 @@ desplegarInfo::desplegarInfo(int posx_, int posy_, QString texto_)
 
 QRectF desplegarInfo::boundingRect() const
 {
-    return QRectF(posx,0-posy,ancho,alto);
+    //return QRectF(posx,0-posy,ancho,alto);
+    return QRectF(0,0,ancho,alto);
 }
 
 void desplegarInfo::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -30,8 +36,8 @@ void desplegarInfo::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     painter->setFont(font);
     painter->setPen(Qt::black);
     //painter->setBrush(Qt::white);
-    painter->drawText(posx,posy,texto);
-    painter->drawRect(boundingRect());
+    painter->drawText(boundingRect(),texto);
+    //painter->drawRect(boundingRect());
 
 }
 

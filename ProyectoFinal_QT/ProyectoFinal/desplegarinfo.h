@@ -22,6 +22,7 @@ public:
     void cambiarTexto(QString nuevoTexto);
     void actualizar();
     void moverTexto(int x, int y);
+    int getPosx() const;
 };
 
 #endif // DESPLEGARINFO_H

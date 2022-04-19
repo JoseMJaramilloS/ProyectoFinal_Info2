@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
     scene->addItem(textoVidas);
-    textoBalas= new desplegarInfo(400,24,"Balas: "+ str.setNum(soldado->getBalas()));
+    textoBalas= new desplegarInfo(800,24,"Balas: "+ str.setNum(soldado->getBalas()));
     scene->addItem(textoBalas);
 
 }
@@ -201,7 +201,7 @@ bool MainWindow::colisionAliens()
 void MainWindow::colisionBonificaciones()
 {
     tiempoBonif++;
-    if (tiempoBonif==20) {// Divisor de frecuencia
+    if (tiempoBonif==25) {// Divisor de frecuencia
         for (iter_muni=municiones.begin(); iter_muni!=municiones.end(); iter_muni++) {
             if ((*iter_muni) -> collidesWithItem(soldado)) {
                 //cout<<"Colision con municion"<<endl;
@@ -285,17 +285,19 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     case Qt::Key_D:{
         soldado->MovDerecha();
         ui->graphicsView->centerOn(soldado->getPosx(),0);
-//        textoVidas->moverTexto(soldado->getPosx(),24);
-//        cout<<soldado->getPosx()<<endl;
-//        if (soldado->getPosx()>1024/2) {
-//            textoVidas->moverTexto(soldado->getPosx(),24);
-//        }
-        //textoVidas->moverTexto(ui->graphicsView->rect().x()+10,24);
+        if (soldado->getPosx()>dim_x/2 && soldado->getPosx()<dim_x*10-dim_x/2) {
+            textoVidas->moverTexto(textoVidas->getPosx()+10,24); // Movimiento texto: VIDAS
+            textoBalas->moverTexto(textoBalas->getPosx()+10,24); // Movimiento texto: BALAS
+        }
         break;
     }
     case Qt::Key_A:{
         soldado->MovIzquierda();
         ui->graphicsView->centerOn(soldado->getPosx(),0);
+        if (soldado->getPosx()>dim_x/2 && soldado->getPosx()<dim_x*10-dim_x/2) {
+            textoVidas->moverTexto(textoVidas->getPosx()-10,24); // Movimiento texto: VIDAS
+            textoBalas->moverTexto(textoBalas->getPosx()-10,24); // Movimiento texto: BALAS
+        }
         break;
     }
     case Qt::Key_W:{
