@@ -42,7 +42,7 @@ public:
 
     void MovDerecha();
     void MovIzquierda();
-    void saltar();
+    void saltar(int vely0_);
     void caida();
     void sinCaida(int posyBloque);
     void fueraMapa();

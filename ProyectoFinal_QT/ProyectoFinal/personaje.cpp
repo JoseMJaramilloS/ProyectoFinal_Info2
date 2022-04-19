@@ -50,7 +50,6 @@ void personaje::setGranadas(int value)
     granadas = value;
 }
 
-
 bool personaje::getSalto() const
 {
     return salto;
@@ -59,6 +58,26 @@ bool personaje::getSalto() const
 void personaje::setSalto(bool value)
 {
     salto = value;
+}
+
+bool personaje::getCaer() const
+{
+    return caer;
+}
+
+void personaje::setCaer(bool value)
+{
+    caer = value;
+}
+
+bool personaje::getSentidoPersonaje() const
+{
+    return sentidoPersonaje;
+}
+
+void personaje::setSentidoPersonaje(bool value)
+{
+    sentidoPersonaje = value;
 }
 
 personaje::personaje()
@@ -103,26 +122,6 @@ void personaje::MovIzquierda()
     sentidoPersonaje=false;
 }
 
-bool personaje::getCaer() const
-{
-    return caer;
-}
-
-void personaje::setCaer(bool value)
-{
-    caer = value;
-}
-
-bool personaje::getSentidoPersonaje() const
-{
-    return sentidoPersonaje;
-}
-
-void personaje::setSentidoPersonaje(bool value)
-{
-    sentidoPersonaje = value;
-}
-
 void personaje::gravedad()
 {
     dt+=0.01;
@@ -133,9 +132,9 @@ void personaje::gravedad()
 
 }
 
-void personaje::saltar()
+void personaje::saltar(int vely0_)
 {
-    vely0=8;
+    vely0=vely0_;
     timer->start(10);
     salto=true;
 

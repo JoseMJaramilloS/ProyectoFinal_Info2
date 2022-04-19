@@ -65,10 +65,16 @@ void bullet::Movimiento()
     dist+=abs(vel);
     setPos(posx,posy);
     if (dist>=400) { // Si no hay impacto y se cumple distancia maxima
-        timer->stop();
-        dist=0;
-        balaActiva=false;
-        scene->removeItem(this);
-        bullets.removeOne(this);
+        impacto();
     }
 }
+
+void bullet::impacto()
+{
+    timer->stop();
+    dist=0;
+    balaActiva=false;
+    scene->removeItem(this);
+    bullets.removeOne(this);
+}
+

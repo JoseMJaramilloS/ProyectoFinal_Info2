@@ -16,6 +16,7 @@
 #include "personaje.h"
 #include "municion.h"
 #include "bullet.h"
+#include "desplegarinfo.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -38,7 +39,9 @@ public slots:
     bool colisionBloques();
     bool colisionAliens();
     void colisionBonificaciones();
+    void colisionBalas();
     void efectoCaida();
+    void tiempoJuego();
 
 private:
     Ui::MainWindow *ui;
@@ -50,7 +53,8 @@ private:
     QList <alien1*>aliens1;
     QList <alien1*>::Iterator iter_aliens1;
     QList <alien2*>aliens2;
-    QList <alien2*>::Iterator iter_aliens2;
+    QList <alien2*>::Iterator iter_aliens2; // Movimiento
+    QList <alien2*>::Iterator iter2_aliens2; // Colisiones
     QList <municion*>municiones;
     QList <municion*>::Iterator iter_muni;
     QList <vida*>vidas;
@@ -58,6 +62,7 @@ private:
     QList <vida*>::Iterator iter_vidas2; // Porque no se puede usar el mismo iterador al tiempo
     QList <bullet*>bullets;
     QList <bullet*>::Iterator iter_bullets;
+    //QList <desplegarInfo>
     personaje *soldado;
     QTimer *timer;
     int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0,tiempoBonif=0; // Contadores de reloj
@@ -66,6 +71,10 @@ private:
     int mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2
     void keyPressEvent(QKeyEvent *evento);
-    bloque *bloqueColisionado,*bloquePrueba;
+    bloque *bloqueColisionado;
+    QString str,str2;
+    desplegarInfo *textoVidas;
+    desplegarInfo *textoBalas;
+
 };
 #endif // MAINWINDOW_H

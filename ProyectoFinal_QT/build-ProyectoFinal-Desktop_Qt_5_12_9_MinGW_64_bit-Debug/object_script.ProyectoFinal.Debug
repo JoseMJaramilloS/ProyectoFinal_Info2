@@ -2,6 +2,7 @@ debug/alien1.o
 debug/alien2.o
 debug/bloque.o
 debug/bullet.o
+debug/desplegarinfo.o
 debug/granade.o
 debug/main.o
 debug/mainwindow.o

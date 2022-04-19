@@ -29,6 +29,7 @@ public:
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
 
+    void impacto();
     int getPosx() const;
     int getPosy() const;
     bool getBalaActiva() const;

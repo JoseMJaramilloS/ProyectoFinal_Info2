@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     dim_y=720;
     scene = new QGraphicsScene(this);
     //view = new QGraphicsView(this);
-    //setGeometry(0,0,dim_x,dim_y);
+    //setGeometry(0,0,dim_x,dim_y); // DESCOMENTAR al final
     setWindowTitle("Alien Invasion: Last Hope");
     ui->graphicsView ->setGeometry(0,0,dim_x,dim_y);
     scene->setSceneRect(0,0,dim_x*10,dim_y);
@@ -22,15 +22,24 @@ MainWindow::MainWindow(QWidget *parent)
     timer= new QTimer;
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBloques()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionAliens()));
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBonificaciones()));
+    connect(timer, SIGNAL(timeout()),this,SLOT(colisionBalas()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
-    connect(timer, SIGNAL(timeout()),this,SLOT(movimientoVida()));
+
     timer->start(10);
 
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
+
+
+    textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
+    scene->addItem(textoVidas);
+    textoBalas= new desplegarInfo(400,24,"Balas: "+ str.setNum(soldado->getBalas()));
+    scene->addItem(textoBalas);
+
 }
 
 MainWindow::~MainWindow()
@@ -169,7 +178,8 @@ bool MainWindow::colisionAliens()
                 if (aliens1.at(i)->collidesWithItem(soldado)) { // Colision con aliens1
                     //cout<<"Colision con alien1"<<endl;
                     soldado->setVidas(soldado->getVidas()-1);
-                    cout<<"vidas: "<<soldado->getVidas()<<endl;
+                    textoVidas->cambiarTexto("Vidas: "+ str.setNum(soldado->getVidas()));
+                    cout<<"vidas-: "<<soldado->getVidas()<<endl;
                     danio=true;
                 }
             }
@@ -177,7 +187,8 @@ bool MainWindow::colisionAliens()
                 if (aliens2.at(i)->collidesWithItem(soldado)) { // Colision con aliens2
                     //cout<<"Colision con alien2"<<endl;
                     soldado->setVidas(soldado->getVidas()-1);
-                    cout<<"vidas: "<<soldado->getVidas()<<endl;
+                    textoVidas->cambiarTexto("Vidas: "+ str.setNum(soldado->getVidas()));
+                    cout<<"vidas-: "<<soldado->getVidas()<<endl;
                     danio= true;
                 }
             }
@@ -195,7 +206,8 @@ void MainWindow::colisionBonificaciones()
             if ((*iter_muni) -> collidesWithItem(soldado)) {
                 //cout<<"Colision con municion"<<endl;
                 soldado->setBalas(soldado->getBalas()+1);
-                cout<<"balas: "<<soldado->getBalas()<<endl;
+                textoBalas->cambiarTexto("Balas: "+ str.setNum(soldado->getBalas()));
+                cout<<"balas+: "<<soldado->getBalas()<<endl;
                 scene->removeItem(*iter_muni);
                 municiones.erase(iter_muni);
             }
@@ -204,12 +216,30 @@ void MainWindow::colisionBonificaciones()
             if ((*iter_vidas2)->collidesWithItem(soldado)) {
                 //cout<<"Colision con vida"<<endl;
                 soldado->setVidas(soldado->getVidas()+1);
-                cout<<"vidas: "<<soldado->getVidas()<<endl;
+                textoVidas->cambiarTexto("Vidas: "+ str.setNum(soldado->getVidas()));
+                cout<<"vidas+: "<<soldado->getVidas()<<endl;
                 scene->removeItem(*iter_vidas2);
                 vidas.erase(iter_vidas2);
             }
         }
         tiempoBonif=0;
+    }
+}
+
+void MainWindow::colisionBalas()
+{
+    if (!bullets.empty()) { // Si no esta vacio
+        for (iter_bullets=bullets.begin();iter_bullets!=bullets.end();iter_bullets++) {
+            for (iter2_aliens2=aliens2.begin();iter2_aliens2!=aliens2.end();iter2_aliens2++) {
+                if ((*iter2_aliens2)->collidesWithItem(*iter_bullets)) { // Colision con aliens1
+                    cout<<"Impacto de bala con alien2"<<endl;
+                    (*iter_bullets)->impacto();
+                    scene->removeItem(*iter2_aliens2);
+                    aliens2.erase(iter2_aliens2);
+                }
+            }
+        }
+
     }
 }
 
@@ -244,12 +274,23 @@ void MainWindow::efectoCaida()
 
 }
 
+void MainWindow::tiempoJuego()
+{
+
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
     switch (evento->key()) {
     case Qt::Key_D:{
         soldado->MovDerecha();
         ui->graphicsView->centerOn(soldado->getPosx(),0);
+//        textoVidas->moverTexto(soldado->getPosx(),24);
+//        cout<<soldado->getPosx()<<endl;
+//        if (soldado->getPosx()>1024/2) {
+//            textoVidas->moverTexto(soldado->getPosx(),24);
+//        }
+        //textoVidas->moverTexto(ui->graphicsView->rect().x()+10,24);
         break;
     }
     case Qt::Key_A:{
@@ -258,7 +299,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         break;
     }
     case Qt::Key_W:{
-        soldado->saltar();
+        if (soldado->getPosy()>360) soldado->saltar(8); // Salta diferente si esta en plataforma o en el piso
+        else soldado->saltar(6);
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         break;
     }
@@ -267,7 +309,7 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         if(soldado->getBalas()>0){ // Si tiene balas
             if (soldado->getSentidoPersonaje()==true) { // disparo a la derecha
                 bullets.push_back(new bullet(soldado->getPosx()+90,soldado->getPosy()+50,true,scene,bullets));
-                scene->addItem(bullets.back());
+                scene->addItem(bullets.back()); 
 
             }
             else if (soldado->getSentidoPersonaje()==false) { // disparo a la izquierda
@@ -275,6 +317,9 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
                 scene->addItem(bullets.back());
             }
             soldado->setBalas(soldado->getBalas()-1); // Se resta una bala
+            textoBalas->cambiarTexto("Balas: "+ str.setNum(soldado->getBalas()));
+            cout<<"balas-: "<<soldado->getBalas()<<endl;
+
         }
         break;
     }

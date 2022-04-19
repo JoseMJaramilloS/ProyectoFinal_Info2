@@ -20,6 +20,7 @@ SOURCES += \
     alien2.cpp \
     bloque.cpp \
     bullet.cpp \
+    desplegarinfo.cpp \
     granade.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     alien2.h \
     bloque.h \
     bullet.h \
+    desplegarinfo.h \
     mainwindow.h \
     municion.h \
     personaje.h \

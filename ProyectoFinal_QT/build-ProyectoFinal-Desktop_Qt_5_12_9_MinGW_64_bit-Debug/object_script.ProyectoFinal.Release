@@ -2,6 +2,7 @@ release/alien1.o
 release/alien2.o
 release/bloque.o
 release/bullet.o
+release/desplegarinfo.o
 release/granade.o
 release/main.o
 release/mainwindow.o
