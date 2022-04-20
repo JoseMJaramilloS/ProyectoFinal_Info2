@@ -4,6 +4,7 @@ release/bloque.o
 release/bullet.o
 release/desplegarinfo.o
 release/granade.o
+release/inicio.o
 release/main.o
 release/mainwindow.o
 release/municion.o
@@ -12,4 +13,5 @@ release/vida.o
 release/qrc_alien.o
 release/qrc_mapa.o
 release/qrc_personaje.o
+release/moc_inicio.o
 release/moc_mainwindow.o

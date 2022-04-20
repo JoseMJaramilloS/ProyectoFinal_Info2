@@ -26,6 +26,28 @@ void inicio::on_btnRegistrar_clicked()
     user=ui->lineUser->text();
     password=ui->linePassword->text();
     //escibir archivo
+    user=ui->lineUser->text();
+    password=ui->linePassword->text();
+    QString puntinicio="0";
+    QFile cuenta(user);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+        QMessageBox::information(this,"Menú","Cuenta Creada Con Éxito.");
+        QTextStream out(&cuenta);
+        out << user<<endl; out << password << endl;
+        out << puntinicio << endl;
+        out<<"1"<<endl; out <<"3"<<endl; out<<"4"<<endl;
+        cuenta.close();
+        ui->lineUser->setVisible(false);
+        ui->linePassword->setVisible(false);
+        ui->btnCargarPartida->setVisible(true);
+        ui->btnNuevaPartida->setVisible(true);
+        ui->btnRegistrar->setVisible(false);
+    }
+    else
+    {
+        QMessageBox::information(this,"Menú","Error, por favor vuelva a intentarlo.");
+    }
 }
 
 void inicio::on_btnIngresar_clicked()
