@@ -170,7 +170,7 @@ bool MainWindow::colisionAliens()
         tiempoDanio=0;
         if (danio==true) {
             countDanio++;
-            if (countDanio==3) { // Conteo de danio, para no bajar tantas vidas con un solo impacto de alien
+            if (countDanio==2) { // Conteo de danio, para no bajar tantas vidas con un solo impacto de alien
                 countDanio=0;
                 danio=false;
             }

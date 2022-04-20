@@ -22,6 +22,7 @@ SOURCES += \
     bullet.cpp \
     desplegarinfo.cpp \
     granade.cpp \
+    inicio.cpp \
     main.cpp \
     mainwindow.cpp \
     municion.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
     bloque.h \
     bullet.h \
     desplegarinfo.h \
+    inicio.h \
     mainwindow.h \
     municion.h \
     personaje.h \
@@ -42,6 +44,7 @@ HEADERS += \
     vida.h
 
 FORMS += \
+    inicio.ui \
     mainwindow.ui
 
 # Default rules for deployment.
