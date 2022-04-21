@@ -21,6 +21,7 @@
 #include "bullet.h"
 #include "desplegarinfo.h"
 #include "pausa.h"
+#include "finjuego.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -37,9 +38,6 @@ public:
     void generarMapa();
     void cargarMapa();
     void guardarArchivo();
-    QString getUsuarioGlobal() const;
-    void setUsuarioGlobal(const QString &value);
-    void setCargarPartida(bool value);
 
 public slots:
     void movimientoAlien1();
@@ -52,6 +50,9 @@ public slots:
     void efectoCaida();
     void tiempoJuego();
     void guardarJuego();
+    void nuevaPartida();
+signals:
+    void nuevaPartidaSgn();
 
 private:
     Ui::MainWindow *ui;
@@ -87,6 +88,7 @@ private:
     desplegarInfo *textoBalas;
     desplegarInfo *textoTiempo;
     pausa *pause;
+    finJuego *fin;
     QString usuarioGlobal;
 
 };

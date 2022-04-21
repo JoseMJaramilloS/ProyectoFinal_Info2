@@ -8,5 +8,7 @@
         <file>mapa/Ammo.png</file>
         <file>mapa/vida.png</file>
         <file>mapa/Alien Invasion_Last Hope.png</file>
+        <file>mapa/you_lose.png</file>
+        <file>mapa/you_win.png</file>
     </qresource>
 </RCC>

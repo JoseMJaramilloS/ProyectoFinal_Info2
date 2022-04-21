@@ -8,6 +8,9 @@ inicio::inicio(QWidget *parent) :
     ui->setupUi(this);
     ui->btnNuevaPartida->setVisible(false);
     ui->btnCargarPartida->setVisible(false);
+    ui->linePassword->setEchoMode(QLineEdit::Password);
+
+
 }
 
 inicio::~inicio()
@@ -83,9 +86,8 @@ void inicio::on_btnIngresar_clicked()
 
 void inicio::on_btnNuevaPartida_clicked()
 {
-    game=new MainWindow();
-    game->setCargarPartida(false); //redundante
-    game->setUsuarioGlobal(user);
+    game=new MainWindow(nullptr,false,user);
+    connect(game,SIGNAL(nuevaPartidaSgn()),this,SLOT(nuevaPartida()));
     game->show();
     close();
 }
@@ -93,10 +95,16 @@ void inicio::on_btnNuevaPartida_clicked()
 void inicio::on_btnCargarPartida_clicked()
 {
     game=new MainWindow(nullptr,true,user);
-//    game->setCargarPartida(true);
-//    game->setUsuarioGlobal(user);
+    connect(game,SIGNAL(nuevaPartidaSgn()),this,SLOT(nuevaPartida()));
     game->show();
     close();
+}
+
+void inicio::nuevaPartida()
+{
+    //cout<<"Recibo par anueva partida"<<endl;
+    game=new MainWindow(nullptr,false,user);
+    game->show();
 }
 
 QString inicio::getPassword() const

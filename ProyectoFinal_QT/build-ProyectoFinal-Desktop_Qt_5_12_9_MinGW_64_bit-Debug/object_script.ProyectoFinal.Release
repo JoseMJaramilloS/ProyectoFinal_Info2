@@ -3,6 +3,7 @@ release/alien2.o
 release/bloque.o
 release/bullet.o
 release/desplegarinfo.o
+release/finjuego.o
 release/granade.o
 release/inicio.o
 release/main.o
@@ -14,6 +15,7 @@ release/vida.o
 release/qrc_alien.o
 release/qrc_mapa.o
 release/qrc_personaje.o
+release/moc_finjuego.o
 release/moc_inicio.o
 release/moc_mainwindow.o
 release/moc_pausa.o

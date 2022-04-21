@@ -4,7 +4,9 @@
 #include <QDialog>
 #include <QFile>
 #include <QMessageBox>
+#include <QObject>
 #include <mainwindow.h>
+#include "finjuego.h"
 
 namespace Ui {
 class inicio;
@@ -26,6 +28,7 @@ private slots:
     void on_btnIngresar_clicked();
     void on_btnNuevaPartida_clicked();
     void on_btnCargarPartida_clicked();
+    void nuevaPartida(); // dada al fin de juego
 
 private:
     Ui::inicio *ui;

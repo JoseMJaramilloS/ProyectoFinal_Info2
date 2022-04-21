@@ -25,10 +25,10 @@ MainWindow::MainWindow(QWidget *parent,bool cargarPartida_, QString usuarioGloba
         soldado= new personaje(0,720-90-90);
         scene->addItem(soldado);
     } else {
-
         cargarMapa();
     }
 
+    // Conexiones de reloj
     timer= new QTimer;
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien2()));
@@ -41,9 +41,6 @@ MainWindow::MainWindow(QWidget *parent,bool cargarPartida_, QString usuarioGloba
     connect(timer, SIGNAL(timeout()),this,SLOT(tiempoJuego()));
     timer->start(10);
 
-//    soldado= new personaje(0,720-90-90);
-//    scene->addItem(soldado);
-
     textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
     scene->addItem(textoVidas);
     textoBalas= new desplegarInfo(800,24,"Balas: "+ str.setNum(soldado->getBalas()));
@@ -53,6 +50,9 @@ MainWindow::MainWindow(QWidget *parent,bool cargarPartida_, QString usuarioGloba
 
     pause = new pausa;
     connect(pause,SIGNAL(guardar()),this,SLOT(guardarJuego()));
+
+    fin=new finJuego();
+    connect(fin,SIGNAL(nuevaPartida()),this,SLOT(nuevaPartida()));
 
 }
 
@@ -477,12 +477,23 @@ void MainWindow::tiempoJuego()
         textoTiempo->cambiarTexto(str.setNum(tiempo));
         tiempoGlobal=0;
     }
+
+    // Gana o pierde
+    if (tiempo==0 || soldado->getVidas()<=0) {
+        timer->stop();
+        this->close();
+        fin->pierde();
+        fin->show();
+    }
+    else if (soldado->getPosx()>=10240-90) {
+
+    }
 }
 
 void MainWindow::guardarJuego()
 {
     QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo;
-    cout<<"si"<<endl;
+    cout<<"Guardando"<<endl;
 
     //leer archivo
     QFile archivo(usuarioGlobal);
@@ -542,9 +553,11 @@ void MainWindow::guardarJuego()
 
 }
 
-void MainWindow::setCargarPartida(bool value)
+void MainWindow::nuevaPartida()
 {
-    cargarPartida = value;
+    //qDebug()<<"Reemito para nueva partida"<<endl;
+    emit nuevaPartidaSgn();
+    this->~MainWindow();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
@@ -622,12 +635,3 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
     }
 }
 
-QString MainWindow::getUsuarioGlobal() const
-{
-    return usuarioGlobal;
-}
-
-void MainWindow::setUsuarioGlobal(const QString &value)
-{
-    usuarioGlobal = value;
-}

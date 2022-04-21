@@ -21,6 +21,7 @@ SOURCES += \
     bloque.cpp \
     bullet.cpp \
     desplegarinfo.cpp \
+    finjuego.cpp \
     granade.cpp \
     inicio.cpp \
     main.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     bloque.h \
     bullet.h \
     desplegarinfo.h \
+    finjuego.h \
     inicio.h \
     mainwindow.h \
     municion.h \
@@ -46,6 +48,7 @@ HEADERS += \
     vida.h
 
 FORMS += \
+    finjuego.ui \
     inicio.ui \
     mainwindow.ui \
     pausa.ui
