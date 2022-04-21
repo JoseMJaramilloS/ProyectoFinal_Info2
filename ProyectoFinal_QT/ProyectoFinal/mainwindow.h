@@ -32,12 +32,14 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(QWidget *parent = nullptr,bool cargarPartida_=false,QString usuarioGlobal_="");
     ~MainWindow();
     void generarMapa();
+    void cargarMapa();
     void guardarArchivo();
     QString getUsuarioGlobal() const;
     void setUsuarioGlobal(const QString &value);
+    void setCargarPartida(bool value);
 
 public slots:
     void movimientoAlien1();
@@ -77,7 +79,7 @@ private:
     bool danio=false; // Para reducir vida del personaje
     int mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2
-    bool pauseActive=false;
+    bool pauseActive=false,cargarPartida=false;
     void keyPressEvent(QKeyEvent *evento);
     bloque *bloqueColisionado;
     QString str,str2;

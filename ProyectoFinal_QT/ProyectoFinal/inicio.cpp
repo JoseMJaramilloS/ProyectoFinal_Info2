@@ -35,16 +35,7 @@ void inicio::on_btnRegistrar_clicked()
         out << user<<endl;
         out << password<<endl;
         out <<"0,540,3,5"<< endl; // x,y,vidas,balas
-//        out <<"540"<<endl;
-//        out <<"3"<<endl; // vidas
-//        out <<"5"<<endl; // balas
         cuenta.close();
-//        ui->lineUser->setVisible(false);
-//        ui->linePassword->setVisible(false);
-//        ui->btnCargarPartida->setVisible(true);
-//        ui->btnNuevaPartida->setVisible(true);
-//        ui->btnRegistrar->setVisible(false);
-
     }
     else
     {
@@ -93,14 +84,19 @@ void inicio::on_btnIngresar_clicked()
 void inicio::on_btnNuevaPartida_clicked()
 {
     game=new MainWindow();
-    game->show();
+    game->setCargarPartida(false); //redundante
     game->setUsuarioGlobal(user);
+    game->show();
     close();
 }
 
 void inicio::on_btnCargarPartida_clicked()
 {
-
+    game=new MainWindow(nullptr,true,user);
+//    game->setCargarPartida(true);
+//    game->setUsuarioGlobal(user);
+    game->show();
+    close();
 }
 
 QString inicio::getPassword() const

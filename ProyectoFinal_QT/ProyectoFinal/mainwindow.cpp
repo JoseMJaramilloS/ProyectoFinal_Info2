@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent,bool cargarPartida_, QString usuarioGlobal_)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
     dim_x=1024;
     dim_y=720;
     scene = new QGraphicsScene(this);
-    //view = new QGraphicsView(this);
     //setGeometry(0,0,dim_x,dim_y); // DESCOMENTAR al final
     setWindowTitle("Alien Invasion: Last Hope");
     ui->graphicsView ->setGeometry(0,0,dim_x,dim_y);
@@ -17,7 +16,18 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setBackgroundBrush(QBrush(QImage(":/mapa/fondo1.jpeg")));
     ui->graphicsView->setScene(scene);
     ui->graphicsView->centerOn(0,0);
-    generarMapa();
+
+    // Generacion de mapa y carga de partida
+    usuarioGlobal=usuarioGlobal_;
+    cargarPartida=cargarPartida_;
+    if (cargarPartida==false) {
+        generarMapa();
+        soldado= new personaje(0,720-90-90);
+        scene->addItem(soldado);
+    } else {
+
+        cargarMapa();
+    }
 
     timer= new QTimer;
     connect(timer, SIGNAL(timeout()),this,SLOT(movimientoAlien1()));
@@ -31,8 +41,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(tiempoJuego()));
     timer->start(10);
 
-    soldado= new personaje(0,720-90-90);
-    scene->addItem(soldado);
+//    soldado= new personaje(0,720-90-90);
+//    scene->addItem(soldado);
 
     textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
     scene->addItem(textoVidas);
@@ -43,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     pause = new pausa;
     connect(pause,SIGNAL(guardar()),this,SLOT(guardarJuego()));
+
 }
 
 MainWindow::~MainWindow()
@@ -102,6 +113,183 @@ void MainWindow::generarMapa()
             ultimaVida=i;
             vidas.push_back(new vida(i,200,60));
             scene->addItem(vidas.back());
+        }
+    }
+}
+
+void MainWindow::cargarMapa()
+{
+    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo;
+    cout<<"Cargando mapa"<<endl;
+
+    //leer archivo
+    QFile archivo(usuarioGlobal);
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        QTextStream read(&archivo);
+        QString clave;
+        user= read.readLine(); //usuario
+        password = read.readLine();
+        Str_personaje = read.readLine();
+        Str_aliens2 = read.readLine();
+        Str_vidas = read.readLine();
+        Str_municion = read.readLine();
+        Str_tiempo = read.readLine();
+        archivo.close();
+    }
+    else {
+        QMessageBox::information(this,"Cargar","Error al leer archivo");
+    }
+
+    // Reconstruyendo mapa
+    QString x,y,vidasP,balasP;
+    bool flag=false,cond;
+    for (int i=0,j=0;i<=(dim_x*10);i+=90) {
+
+        // Condicion para acantilados
+        cond=!((90*6<=i && i<=90*7) || (90*23<=i && i<=90*24) || (90*36<=i && i<=90*37) || (90*51<=i && i<=90*52) || (90*81<=i && i<=90*82));
+        if (cond) {
+            // Generacion de suelo
+            bloques.push_back(new bloque(i,720-90,90));
+            scene->addItem(bloques.back());
+
+        }
+        else {
+            // Generacion de aliens1
+            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%6)));
+            scene->addItem(aliens1.back());
+        }
+        // Plataformas
+        if(rand()%5==1){
+            flag=true;
+            j=0;
+        }
+        if(flag && j<2 && i!=0 && cond){
+            bloques.push_back(new bloque(i,720-90*4,90));
+            scene->addItem(bloques.back());
+            j++;
+        }
+    }
+    // Cargando personaje
+    for (int i=0,j=1;i<Str_personaje.length();i++) {
+        if (Str_personaje[i]==",") {
+            j++;
+        }
+        else{
+            switch (j) {
+            case 1:
+                x+=Str_personaje[i];
+                break;
+            case 2:
+                y+=Str_personaje[i];
+                break;
+            case 3:
+                vidasP+=Str_personaje[i];
+                break;
+            case 4:
+                balasP+=Str_personaje[i];
+                break;
+            default:
+                qDebug()<<"Error en carga de personaje"<<endl;
+                break;
+            }
+        }
+    }
+    soldado= new personaje(x.toInt(),y.toInt());
+    scene->addItem(soldado);
+    ui->graphicsView->centerOn(soldado->getPosx(),0);
+    soldado->setVidas(vidasP.toInt());
+    soldado->setBalas(balasP.toInt());
+    tiempo=Str_tiempo.toInt();
+    qDebug()<<"Personaje cargado en "<<x<<","<<y<<","<<vidasP<<","<<balasP<<endl;
+
+    // Cargando aliens2
+    x="";y="";
+    for (int i=0,j=1;i<Str_aliens2.length();i++) {
+        if (Str_aliens2[i]==",") {
+            if (j==2) {
+                j=1;
+                aliens2.push_back(new alien2(x.toInt(),y.toInt()));
+                qDebug()<<"Alien2 cargado en "<<x<<","<<y<<endl;
+                scene->addItem(aliens2.back());
+                x="";y="";
+            }
+            else {
+                j++;
+            }
+        }
+        else{
+            switch (j) {
+            case 1:
+                x+=Str_aliens2[i];
+                break;
+            case 2:
+                y+=Str_aliens2[i];
+                break;
+            default:
+                qDebug()<<"Error en carga de alien2"<<endl;
+                break;
+            }
+        }
+    }
+
+    // Cargando vidas
+    x="";y="";
+    for (int i=0,j=1;i<Str_vidas.length();i++) {
+        if (Str_vidas[i]==",") {
+            if (j==2) {
+                j=1;
+                vidas.push_back(new vida(x.toInt(),y.toInt(),60));
+                qDebug()<<"Vida cargada en "<<x<<","<<y<<endl;
+                scene->addItem(vidas.back());
+                x="";y="";
+            }
+            else {
+                j++;
+            }
+        }
+        else{
+            switch (j) {
+            case 1:
+                x+=Str_vidas[i];
+                break;
+            case 2:
+                y+=Str_vidas[i];
+                break;
+            default:
+                qDebug()<<"Error en carga de vida"<<endl;
+                break;
+            }
+        }
+    }
+
+    // Cargando municiones
+    x="";y="";
+    for (int i=0,j=1;i<Str_municion.length();i++) {
+        if (Str_municion[i]==",") {
+            if (j==2) {
+                j=1;
+                municiones.push_back(new municion(x.toInt(),y.toInt(),60));
+                qDebug()<<"Municion cargada en "<<x<<","<<y<<endl;
+                scene->addItem(municiones.back());
+                x="";y="";
+            }
+            else {
+                j++;
+            }
+        }
+        else{
+            switch (j) {
+            case 1:
+                x+=Str_municion[i];
+                break;
+            case 2:
+                y+=Str_municion[i];
+                break;
+            default:
+                qDebug()<<"Error en carga de municion"<<endl;
+                break;
+            }
         }
     }
 }
@@ -293,7 +481,7 @@ void MainWindow::tiempoJuego()
 
 void MainWindow::guardarJuego()
 {
-    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion;
+    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo;
     cout<<"si"<<endl;
 
     //leer archivo
@@ -310,7 +498,7 @@ void MainWindow::guardarJuego()
         QMessageBox::information(this,"Guardar","Error al leer archivo");
     }
 
-    // Se obtienen los valores
+    // Se obtienen los valores de la escena
     Str_personaje=QString::number(soldado->getPosx())+","+QString::number(soldado->getPosy())+","+QString::number(soldado->getVidas())+","+QString::number(soldado->getBalas());
     for (int i=0;i<aliens2.length();i++) {
         Str_aliens2+=QString::number(aliens2.at(i)->getPosx0())+",";
@@ -325,10 +513,12 @@ void MainWindow::guardarJuego()
         Str_municion+=QString::number(municiones.at(i)->getPosy0())+",";
     }
 
+    Str_tiempo=QString::number(tiempo);
     qDebug()<<Str_personaje<<endl;
     qDebug()<<Str_aliens2<<endl;
     qDebug()<<Str_vidas<<endl;
     qDebug()<<Str_municion<<endl;
+    qDebug()<<Str_tiempo<<endl;
 
     // Escribir archivo
     QFile cuenta(user);
@@ -342,6 +532,7 @@ void MainWindow::guardarJuego()
         out <<Str_aliens2<<endl;
         out <<Str_vidas<<endl; // vidas
         out <<Str_municion<<endl; // balas
+        out <<Str_tiempo<<endl;
         cuenta.close();
     }
     else
@@ -349,6 +540,11 @@ void MainWindow::guardarJuego()
         QMessageBox::information(this,"Guardar","Error al guardar la partida.");
     }
 
+}
+
+void MainWindow::setCargarPartida(bool value)
+{
+    cargarPartida = value;
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *evento)
