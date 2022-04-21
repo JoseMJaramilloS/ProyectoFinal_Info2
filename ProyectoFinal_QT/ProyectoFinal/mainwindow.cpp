@@ -486,7 +486,10 @@ void MainWindow::tiempoJuego()
         fin->show();
     }
     else if (soldado->getPosx()>=10240-90) {
-
+        timer->stop();
+        this->close();
+        fin->gana();
+        fin->show();
     }
 }
 
