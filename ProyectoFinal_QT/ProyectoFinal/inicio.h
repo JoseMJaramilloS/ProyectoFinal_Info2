@@ -18,6 +18,9 @@ public:
     explicit inicio(QWidget *parent = nullptr);
     ~inicio();
 
+    QString getUser() const;
+    QString getPassword() const;
+
 private slots:
     void on_btnRegistrar_clicked();
     void on_btnIngresar_clicked();
@@ -26,9 +29,14 @@ private slots:
 
 private:
     Ui::inicio *ui;
+    MainWindow *game;
     QString user;
     QString password;
-    MainWindow *game;
+    QString personaje;
+    QString aliens2;
+    QString vidas;
+    QString municion;
+
 };
 
 #endif // INICIO_H

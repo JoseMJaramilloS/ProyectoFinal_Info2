@@ -1,8 +1,20 @@
 #include "alien2.h"
+int alien2::getPosx0() const
+{
+    return posx0;
+}
+
+int alien2::getPosy0() const
+{
+    return posy0;
+}
+
 alien2::alien2(int x, int y)
 {
-        posx=x;
-        posy=y;
+    posx=x;
+    posy=y;
+        posx0=x;
+        posy0=y;
         setPos(x,y);
 
         filas=0;

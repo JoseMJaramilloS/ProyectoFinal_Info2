@@ -41,6 +41,16 @@ void vida::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
     //painter->drawRect(boundingRect());
 }
 
+int vida::getPosx0() const
+{
+    return posx0;
+}
+
+int vida::getPosy0() const
+{
+    return posy0;
+}
+
 void vida::Movimiento()
 {
 

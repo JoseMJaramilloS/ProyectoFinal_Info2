@@ -169,5 +169,13 @@ void personaje::fueraMapa()
     setPos(posx,posy);
 }
 
+void personaje::personajePausa(bool pauseActive)
+{
+    if (pauseActive) {
+        timer->stop();
+    }
+    else timer->start(10);
+}
+
 
 

@@ -9,6 +9,9 @@
 #include <QTimer>
 #include <cstdlib> //Para generacion de numeros aleatorios
 #include <QKeyEvent>
+#include <QFile>
+#include <QMessageBox>
+#include <QDebug>
 #include "bloque.h"
 #include "alien1.h"
 #include "alien2.h"
@@ -17,10 +20,12 @@
 #include "municion.h"
 #include "bullet.h"
 #include "desplegarinfo.h"
+#include "pausa.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -30,7 +35,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void generarMapa();
-
+    void guardarArchivo();
+    QString getUsuarioGlobal() const;
+    void setUsuarioGlobal(const QString &value);
 
 public slots:
     void movimientoAlien1();
@@ -42,6 +49,7 @@ public slots:
     void colisionBalas();
     void efectoCaida();
     void tiempoJuego();
+    void guardarJuego();
 
 private:
     Ui::MainWindow *ui;
@@ -62,7 +70,6 @@ private:
     QList <vida*>::Iterator iter_vidas2; // Porque no se puede usar el mismo iterador al tiempo
     QList <bullet*>bullets;
     QList <bullet*>::Iterator iter_bullets;
-    //QList <desplegarInfo>
     personaje *soldado;
     QTimer *timer;
     int tiempoAlien2=0, tiempoVidas=0, tiempoDanio=0,tiempoBonif=0, tiempoGlobal=0, tiempo=300; // Contadores de reloj
@@ -70,12 +77,15 @@ private:
     bool danio=false; // Para reducir vida del personaje
     int mov=0; // Para el movimiento de alien2
     bool sentidoAlien2=true; // Para el movimiento de alien2
+    bool pauseActive=false;
     void keyPressEvent(QKeyEvent *evento);
     bloque *bloqueColisionado;
     QString str,str2;
     desplegarInfo *textoVidas;
     desplegarInfo *textoBalas;
     desplegarInfo *textoTiempo;
+    pausa *pause;
+    QString usuarioGlobal;
 
 };
 #endif // MAINWINDOW_H

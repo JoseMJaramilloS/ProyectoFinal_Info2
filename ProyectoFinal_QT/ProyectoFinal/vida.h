@@ -23,9 +23,11 @@ public:
 
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
-
     float getPosx() const;
     float getPosy() const;
 
+
+    int getPosx0() const;
+    int getPosy0() const;
 };
 #endif // VIDA_H

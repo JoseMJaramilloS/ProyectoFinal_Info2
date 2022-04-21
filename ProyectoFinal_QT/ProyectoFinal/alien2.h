@@ -11,6 +11,8 @@ class alien2: public QObject, public QGraphicsItem
 {
     int posx=0;
     int posy=0;
+    int posx0;
+    int posy0;
     int vel=1;
 
 public:
@@ -32,6 +34,9 @@ public:
     void setMov(bool value);
     float getY() const;
     void setY(float value);
+
+    int getPosx0() const;
+    int getPosy0() const;
 
 public slots:
     void Actualizar();

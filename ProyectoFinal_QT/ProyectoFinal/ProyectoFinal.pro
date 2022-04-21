@@ -26,6 +26,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     municion.cpp \
+    pausa.cpp \
     personaje.cpp \
     vida.cpp
 
@@ -38,6 +39,7 @@ HEADERS += \
     inicio.h \
     mainwindow.h \
     municion.h \
+    pausa.h \
     personaje.h \
     granade.h \
     mainwindow.h \
@@ -45,7 +47,8 @@ HEADERS += \
 
 FORMS += \
     inicio.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    pausa.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

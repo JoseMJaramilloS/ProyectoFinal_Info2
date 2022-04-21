@@ -8,6 +8,7 @@ release/inicio.o
 release/main.o
 release/mainwindow.o
 release/municion.o
+release/pausa.o
 release/personaje.o
 release/vida.o
 release/qrc_alien.o
@@ -15,3 +16,4 @@ release/qrc_mapa.o
 release/qrc_personaje.o
 release/moc_inicio.o
 release/moc_mainwindow.o
+release/moc_pausa.o

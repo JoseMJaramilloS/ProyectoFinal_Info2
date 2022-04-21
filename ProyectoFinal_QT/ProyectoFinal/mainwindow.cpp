@@ -29,12 +29,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timer, SIGNAL(timeout()),this,SLOT(colisionBalas()));
     connect(timer, SIGNAL(timeout()),this,SLOT(efectoCaida()));
     connect(timer, SIGNAL(timeout()),this,SLOT(tiempoJuego()));
-
     timer->start(10);
 
     soldado= new personaje(0,720-90-90);
     scene->addItem(soldado);
-
 
     textoVidas= new desplegarInfo(10,24,"Vidas: "+ str.setNum(soldado->getVidas()));
     scene->addItem(textoVidas);
@@ -42,6 +40,9 @@ MainWindow::MainWindow(QWidget *parent)
     scene->addItem(textoBalas);    
     textoTiempo= new desplegarInfo(450,24,str.setNum(tiempo));
     scene->addItem(textoTiempo);
+
+    pause = new pausa;
+    connect(pause,SIGNAL(guardar()),this,SLOT(guardarJuego()));
 }
 
 MainWindow::~MainWindow()
@@ -290,6 +291,66 @@ void MainWindow::tiempoJuego()
     }
 }
 
+void MainWindow::guardarJuego()
+{
+    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion;
+    cout<<"si"<<endl;
+
+    //leer archivo
+    QFile archivo(usuarioGlobal);
+    if(archivo.open(QFile::ReadOnly | QFile::Text))
+    {
+        QTextStream read(&archivo);
+        QString clave;
+        user= read.readLine(); //usuario
+        password = read.readLine();
+        archivo.close();
+    }
+    else {
+        QMessageBox::information(this,"Guardar","Error al leer archivo");
+    }
+
+    // Se obtienen los valores
+    Str_personaje=QString::number(soldado->getPosx())+","+QString::number(soldado->getPosy())+","+QString::number(soldado->getVidas())+","+QString::number(soldado->getBalas());
+    for (int i=0;i<aliens2.length();i++) {
+        Str_aliens2+=QString::number(aliens2.at(i)->getPosx0())+",";
+        Str_aliens2+=QString::number(aliens2.at(i)->getPosy0())+",";
+    }
+    for (int i=0;i<vidas.length();i++) {
+        Str_vidas+=QString::number(vidas.at(i)->getPosx0())+",";
+        Str_vidas+=QString::number(vidas.at(i)->getPosy0())+",";
+    }
+    for (int i=0;i<municiones.length();i++) {
+        Str_municion+=QString::number(municiones.at(i)->getPosx0())+",";
+        Str_municion+=QString::number(municiones.at(i)->getPosy0())+",";
+    }
+
+    qDebug()<<Str_personaje<<endl;
+    qDebug()<<Str_aliens2<<endl;
+    qDebug()<<Str_vidas<<endl;
+    qDebug()<<Str_municion<<endl;
+
+    // Escribir archivo
+    QFile cuenta(user);
+    if ( cuenta.open(QFile::WriteOnly | QFile::Text))
+    {
+        QMessageBox::information(this,"Guardar","Partida guardada exitosamente.");
+        QTextStream out(&cuenta);
+        out << user<<endl;
+        out << password<<endl;
+        out <<Str_personaje<< endl; // x,y,vidas,balas
+        out <<Str_aliens2<<endl;
+        out <<Str_vidas<<endl; // vidas
+        out <<Str_municion<<endl; // balas
+        cuenta.close();
+    }
+    else
+    {
+        QMessageBox::information(this,"Guardar","Error al guardar la partida.");
+    }
+
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *evento)
 {
     switch (evento->key()) {
@@ -342,9 +403,35 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         //lanzar granada
         break;
     }
+    case Qt::Key_P:{
+        //pausa
+        if (pauseActive==false) {
+            pause->show();
+            timer->stop();
+            pauseActive=true;
+            soldado->personajePausa(pauseActive);
+        }
+        else {
+            timer->start(10);
+            pause->close();
+            pauseActive=false;
+            soldado->personajePausa(pauseActive);
+        }
+        break;
+    }
     default:
 
         break;
 
     }
+}
+
+QString MainWindow::getUsuarioGlobal() const
+{
+    return usuarioGlobal;
+}
+
+void MainWindow::setUsuarioGlobal(const QString &value)
+{
+    usuarioGlobal = value;
 }

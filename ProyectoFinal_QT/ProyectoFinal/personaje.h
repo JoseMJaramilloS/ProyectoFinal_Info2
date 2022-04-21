@@ -24,7 +24,7 @@ class personaje : public QObject, public QGraphicsItem
     bool caer=false;
     bool sentidoPersonaje=true; //true: DERECHA, false: IZQUIERDA
     int lado=90; //provisional
-    int vidas=5;
+    int vidas=3;
     int balas=5;
     int granadas=0;    
     QTimer *timer;
@@ -46,6 +46,7 @@ public:
     void caida();
     void sinCaida(int posyBloque);
     void fueraMapa();
+    void personajePausa(bool pauseActive);
 
     float filIm,colIm;
     int getPosx() const;

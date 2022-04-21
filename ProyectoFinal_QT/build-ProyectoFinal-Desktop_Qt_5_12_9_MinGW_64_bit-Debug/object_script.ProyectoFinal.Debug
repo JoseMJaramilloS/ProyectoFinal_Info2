@@ -8,6 +8,7 @@ debug/inicio.o
 debug/main.o
 debug/mainwindow.o
 debug/municion.o
+debug/pausa.o
 debug/personaje.o
 debug/vida.o
 debug/qrc_alien.o
@@ -15,3 +16,4 @@ debug/qrc_mapa.o
 debug/qrc_personaje.o
 debug/moc_inicio.o
 debug/moc_mainwindow.o
+debug/moc_pausa.o
