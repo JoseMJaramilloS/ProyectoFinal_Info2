@@ -30,6 +30,7 @@ alien1::alien1(int x, int y, int lado, float a, float w, float u)
     this->a=a;
     this->w=w;
     this->u=u;
+    signoAleatorio=pow(-1,1+rand()%2);
     setPos(posx,posy);
 }
 QRectF alien1::boundingRect() const
@@ -46,7 +47,7 @@ void alien1::Movimiento()
 {
 
     if(dt>=2*M_PI/w) dt=0;
-    posy = posy0 - a*sin(w*dt+u);
+    posy = posy0 + signoAleatorio*a*sin(w*dt+u);
     dt++;
     //cout<<posy<<endl;
     setPos(posx,posy);

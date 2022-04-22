@@ -25,7 +25,7 @@ class personaje : public QObject, public QGraphicsItem
     bool sentidoPersonaje=true; //true: DERECHA, false: IZQUIERDA
     int lado=90; //provisional
     int vidas=3;
-    int balas=5;
+    int balas=3;
     int granadas=0;    
     QTimer *timer;
     QPixmap *pixmap;

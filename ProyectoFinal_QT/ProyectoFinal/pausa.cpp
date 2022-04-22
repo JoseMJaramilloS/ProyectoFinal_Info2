@@ -16,6 +16,7 @@ pausa::~pausa()
 void pausa::on_btnGuardar_clicked()
 {
     emit guardar();
+    close();
 }
 
 void pausa::on_btnCerrar_clicked()

@@ -15,6 +15,7 @@ class alien1: public QGraphicsItem
     int lado;
     float dt=0.00001;
     float a,w,u;//amplitud, vel angular, desfase
+    int signoAleatorio;
 
 public slots:
     void Movimiento();

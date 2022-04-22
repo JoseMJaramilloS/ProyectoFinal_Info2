@@ -5,6 +5,11 @@ int bloque::getPosy() const
     return posy;
 }
 
+int bloque::getPosx() const
+{
+    return posx;
+}
+
 bloque::bloque()
 {
     

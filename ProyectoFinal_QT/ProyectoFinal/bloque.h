@@ -15,6 +15,7 @@ public:
     virtual QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     int getPosy() const;
+    int getPosx() const;
 };
 
 #endif // BLOQUE_H

@@ -63,7 +63,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::generarMapa()
 {
-    int ultimaAmmo=0,ultimaVida=0;
+    int ultimaAmmo=0,ultimaVida=0,ultimoAlien2=0;
+    float n=1.0;
     bool flag=false,cond;
     for (int i=0,j=0;i<=(dim_x*10);i+=90) {
 
@@ -75,15 +76,23 @@ void MainWindow::generarMapa()
             scene->addItem(bloques.back());
 
             // Generacion de aliens2
-            if(rand()%10==1 && i>(90*7)){
+            if(rand()%100<18 && i>(90*7) && (i-ultimoAlien2>=400)){
+                ultimoAlien2=i;
                 aliens2.push_back(new alien2(i,720-90-120));
-                scene->addItem(aliens2.back());
+                scene->addItem(aliens2.back());             
+            }
+            // Generacion de municion
+            if(rand()%100<5 && i>(90*7) && (i-ultimaAmmo)>=400){
+                ultimaAmmo=i;
+                municiones.push_back(new municion(i,571,60));
+                scene->addItem(municiones.back());
             }
         }
         else {
             // Generacion de aliens1
-            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%6)));
+            aliens1.push_back(new alien1(i,360,90,300,0.01*n,M_PI/2*(rand()%6)));
             scene->addItem(aliens1.back());
+            n+=0.2;
         }
         // Plataformas
         if(rand()%5==1){
@@ -93,33 +102,31 @@ void MainWindow::generarMapa()
         if(flag && j<2 && i!=0 && cond){
             bloques.push_back(new bloque(i,720-90*4,90));
             scene->addItem(bloques.back());
-            if(rand()%10==1 && i>(90*7)){
+            // Generacion de municion en plataformas
+            if(rand()%100<4 && i>(90*7)){
                 municiones.push_back(new municion(i,301,60));
                 scene->addItem(municiones.back());
             }
             j++;
         }
 
-        if(rand()%9==1 && i>(90*7) && (i-ultimaAmmo)>=400){
-            // Generacion de municion
-            ultimaAmmo=i;
-            municiones.push_back(new municion(i,571,60));
-            scene->addItem(municiones.back());
-        }
-
-        if(rand()%9==1 && i>(90*7) && (i-ultimaVida)>=500){
-            // Generacion de vidas
+        // Generacion de vidas
+        if(rand()%100<4 && i>(90*7) && (i-ultimaVida)>=500){
             //cout<<"se crea vida en "<<i<<endl;
             ultimaVida=i;
             vidas.push_back(new vida(i,200,60));
             scene->addItem(vidas.back());
         }
     }
+    qDebug()<<"aliens2: "<<aliens2.size()<<endl;
+    qDebug()<<"vidas: "<<vidas.size()<<endl;
+    qDebug()<<"municiones: "<<municiones.size()<<endl;
 }
 
 void MainWindow::cargarMapa()
 {
-    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo;
+
+    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo, Str_plataformas;
     cout<<"Cargando mapa"<<endl;
 
     //leer archivo
@@ -135,6 +142,7 @@ void MainWindow::cargarMapa()
         Str_vidas = read.readLine();
         Str_municion = read.readLine();
         Str_tiempo = read.readLine();
+        Str_plataformas = read.readLine();
         archivo.close();
     }
     else {
@@ -143,8 +151,9 @@ void MainWindow::cargarMapa()
 
     // Reconstruyendo mapa
     QString x,y,vidasP,balasP;
-    bool flag=false,cond;
-    for (int i=0,j=0;i<=(dim_x*10);i+=90) {
+    bool cond;
+    float n=1.0;
+    for (int i=0;i<=(dim_x*10);i+=90) {
 
         // Condicion para acantilados
         cond=!((90*6<=i && i<=90*7) || (90*23<=i && i<=90*24) || (90*36<=i && i<=90*37) || (90*51<=i && i<=90*52) || (90*81<=i && i<=90*82));
@@ -156,20 +165,13 @@ void MainWindow::cargarMapa()
         }
         else {
             // Generacion de aliens1
-            aliens1.push_back(new alien1(i,360,90,300,0.01,M_PI/2*(rand()%6)));
+            aliens1.push_back(new alien1(i,360,90,300,0.01*n,M_PI/2*(rand()%6)));
             scene->addItem(aliens1.back());
+            n+=0.2;
         }
-        // Plataformas
-        if(rand()%5==1){
-            flag=true;
-            j=0;
-        }
-        if(flag && j<2 && i!=0 && cond){
-            bloques.push_back(new bloque(i,720-90*4,90));
-            scene->addItem(bloques.back());
-            j++;
-        }
+
     }
+
     // Cargando personaje
     for (int i=0,j=1;i<Str_personaje.length();i++) {
         if (Str_personaje[i]==",") {
@@ -288,6 +290,36 @@ void MainWindow::cargarMapa()
                 break;
             default:
                 qDebug()<<"Error en carga de municion"<<endl;
+                break;
+            }
+        }
+    }
+
+    // Cargando plataformas
+    x="";y="";
+    for (int i=0,j=1;i<Str_plataformas.length();i++) {
+        if (Str_plataformas[i]==",") {
+            if (j==2) {
+                j=1;
+                bloques.push_back(new bloque(x.toInt(),y.toInt(),90));
+                //qDebug()<<"Plataforma cargada en "<<x<<","<<y<<endl;
+                scene->addItem(bloques.back());
+                x="";y="";
+            }
+            else {
+                j++;
+            }
+        }
+        else{
+            switch (j) {
+            case 1:
+                x+=Str_plataformas[i];
+                break;
+            case 2:
+                y+=Str_plataformas[i];
+                break;
+            default:
+                qDebug()<<"Error en carga de Plataforma"<<endl;
                 break;
             }
         }
@@ -495,7 +527,7 @@ void MainWindow::tiempoJuego()
 
 void MainWindow::guardarJuego()
 {
-    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo;
+    QString user, password, Str_personaje, Str_aliens2, Str_vidas, Str_municion, Str_tiempo, Str_plataformas;
     cout<<"Guardando"<<endl;
 
     //leer archivo
@@ -526,6 +558,12 @@ void MainWindow::guardarJuego()
         Str_municion+=QString::number(municiones.at(i)->getPosx0())+",";
         Str_municion+=QString::number(municiones.at(i)->getPosy0())+",";
     }
+    for (int i=0;i<bloques.length();i++) {
+        if (bloques[i]->getPosy()<540) {
+            Str_plataformas+=QString::number(bloques.at(i)->getPosx())+",";
+            Str_plataformas+=QString::number(bloques.at(i)->getPosy())+",";
+        }
+    }
 
     Str_tiempo=QString::number(tiempo);
     qDebug()<<Str_personaje<<endl;
@@ -533,6 +571,7 @@ void MainWindow::guardarJuego()
     qDebug()<<Str_vidas<<endl;
     qDebug()<<Str_municion<<endl;
     qDebug()<<Str_tiempo<<endl;
+    qDebug()<<Str_plataformas<<endl;
 
     // Escribir archivo
     QFile cuenta(user);
@@ -547,6 +586,7 @@ void MainWindow::guardarJuego()
         out <<Str_vidas<<endl; // vidas
         out <<Str_municion<<endl; // balas
         out <<Str_tiempo<<endl;
+        out <<Str_plataformas<<endl;
         cuenta.close();
     }
     else
