@@ -451,7 +451,7 @@ void MainWindow::colisionBonificaciones()
 
 void MainWindow::colisionBalas()
 {
-    if (!bullets.empty()) { // Si no esta vacio       
+//    if (!bullets.empty()) { // Si no esta vacio
         for (iter2_aliens2=aliens2.begin();iter2_aliens2!=aliens2.end();iter2_aliens2++) {
             for (iter_bullets=bullets.begin();iter_bullets!=bullets.end();iter_bullets++) {
                 if ((*iter2_aliens2)->collidesWithItem(*iter_bullets)) { // Colision con aliens1
@@ -463,7 +463,7 @@ void MainWindow::colisionBalas()
             }
         }
 
-    }
+//    }
 }
 
 void MainWindow::efectoCaida()
@@ -627,8 +627,8 @@ void MainWindow::keyPressEvent(QKeyEvent *evento)
         break;
     }
     case Qt::Key_W:{
-        if (soldado->getPosy()>360) soldado->saltar(8); // Salta diferente si esta en plataforma o en el piso
-        else soldado->saltar(6);
+        if (soldado->getPosy()>360) soldado->saltar(10); // Salta diferente si esta en plataforma o en el piso
+        else soldado->saltar(7);
         ui->graphicsView->centerOn(soldado->getPosx(),0);
         break;
     }

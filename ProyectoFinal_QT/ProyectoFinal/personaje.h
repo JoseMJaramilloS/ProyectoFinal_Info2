@@ -19,7 +19,7 @@ class personaje : public QObject, public QGraphicsItem
     float vely;
     float vely0=0;
     float dt=0; //tamanio de paso para movimiento parabolico
-    float g=9.81; //gravedad
+    float g=9.81*1.5; //gravedad*factor
     bool salto=false;
     bool caer=false;
     bool sentidoPersonaje=true; //true: DERECHA, false: IZQUIERDA
